@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/DynamicHeader";
 import { ClerkProvider } from "@clerk/nextjs";
+import UploadMedia from "@/components/UploadImage";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,7 +29,7 @@ export default function RootLayout({ children }) {
         <ClerkProvider>
           <Header />
         </ClerkProvider>
-
+        <UploadMedia />
         {children}
       </body>
     </html>
