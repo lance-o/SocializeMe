@@ -29,7 +29,6 @@ export default function RootLayout({ children }) {
         <ClerkProvider>
           <Header />
         </ClerkProvider>
-        <UploadMedia />
         {children}
       </body>
     </html>
