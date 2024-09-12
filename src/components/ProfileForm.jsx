@@ -1,38 +1,63 @@
-import { currentUser } from "@clerk/nextjs/server";
+"use client";
 import UploadMedia from "./UploadImage";
-import { SignInButton } from "@clerk/nextjs";
+import "./ProfileForm.css";
+import { useState } from "react";
 
-export default async function ProfileForm() {
-  const currentuser = await currentUser();
+export default function ProfileForm({ submission }) {
+  const [formData, setFormData] = useState({
+    email: "",
+    firstname: "",
+    lastname: "",
+    bio: "",
+    imageUrl: "",
+  });
 
-  async function profileFormSubmit(formData) {
-    "use server";
-    const firstName = formData.get("firstname");
-    const lastName = formData.get("lastname");
-    const email = formData.get("email");
-    const bio = formData.get("bio");
-    const imageUrl = formData.get("imageUrl");
-    const created_date = currentuser?.createdAt;
-    const lastLogin = currentuser?.lastSignInAt;
-    const creationDate = new Date(currentuser.createdAt).toLocaleString();
-    const lastsignIn = new Date(lastLogin).toLocaleString();
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-    console.log("Created date show us please", created_date);
-    console.log(creationDate);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = new FormData(event.target);
+    await submission(form);
+    resetForm();
+  };
 
-    // await db.query(
-    //     `INSERT INTO users(email,bio,first_name,last_name,profile_image,clerk_id) VALUES($1,$2,$3,$4,$5,$6)  `,
-    //     [email, bio, first_name, last_name, CurrUser?.imageUrl, CurrUser?.id]
-    //   );
-  }
+  const resetForm = () => {
+    setFormData({
+      email: "",
+      firstname: "",
+      lastname: "",
+      bio: "",
+      imageUrl: "",
+    });
+  };
 
   return (
-    <div>
-      <SignInButton />
-      <form action={profileFormSubmit}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <form className="profileForm" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email</label>
-          <input type="email" name="email" id="email" placeholder="email" />
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Enter your Email"
+            title="Enter your Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div>
           <label htmlFor="first_name">First Name</label>
@@ -41,6 +66,11 @@ export default async function ProfileForm() {
             name="firstname"
             id="first_name"
             placeholder="First Name"
+            title="Enter your name"
+            minLength={3}
+            value={formData.firstname}
+            onChange={handleChange}
+            required
           />
         </div>
         <div>
@@ -50,19 +80,38 @@ export default async function ProfileForm() {
             name="lastname"
             id="last_name"
             placeholder="Last Name"
+            title="Enter your last name"
+            minLength={5}
+            value={formData.lastname}
+            onChange={handleChange}
+            required
           />
         </div>
         <div>
           <label htmlFor="Bio">Bio</label>
-          <input type="text" name="bio" id="Bio" placeholder="Bio" />
+          <input
+            type="text"
+            name="bio"
+            id="Bio"
+            placeholder="Bio"
+            title="Choose a bio"
+            value={formData.bio}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div>
           <label htmlFor="imageUrl">Image</label>
           <UploadMedia />
-          <input type="hidden" name="imageUrl" id="imageUrl" />
+          <input
+            type="hidden"
+            name="imageUrl"
+            id="imageUrl"
+            value={formData.imageUrl}
+          />
         </div>
         <div>
-          <button>Submit</button>
+          <button title="submit informations">Submit</button>
         </div>
       </form>
     </div>
