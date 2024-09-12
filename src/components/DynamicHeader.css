@@ -1,33 +1,145 @@
 .header {
-  background-color: orange;
+  background-color: #1660d1 ;
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
+  height: 120px;
 }
+
 .headerImage {
+  z-index: 2;
   display: flex;
   align-items: center;
+  border-radius: 50px;
+  transform: scale(1.03);
+  position: absolute;
 }
+
+.headerOverlay {
+  opacity: 0.12;
+
+}
+
+option, a{
+  color: #ffffff;
+}
+
 .RightSideHeader {
   display: flex;
   flex-direction: column;
   align-items: end;
 }
+
+.ClerkUserArea{
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 5px;
+  padding:5px;
+}
+
 .righside_child {
+  transform: translateY(30px);
   display: flex;
   gap: 0.5rem;
 }
 .header select {
-  border: 1px solid black;
-  box-shadow: 0 0 5px rgb(0, 0, 0);
+  /* border: 1px solid #ffffff; */
+  box-shadow: 0 0 2px rgb(0, 0, 0);
   border-radius: 5px;
   background: none;
+  background-color: #ffffff;
+  height:40px;
   transition: selectcolor 1s ease-in-out forward;
 }
 
 .header select:hover {
-  background-color: rgb(136, 220, 144);
-  border: 2px solid rgb(80, 176, 203);
-  transform: scale(1.1);
+  background-color:#ffffff;
+  box-shadow: 0 0 4px rgb(0, 0, 0);
+  /* border: 2px solid rgb(80, 176, 203); */
+  transform: scale(1.03);
   transform: rotateX("5deg");
+}
+
+.NavItems{
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap:15px;
+  background-color: rgba(255, 255, 255, 0.301);
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 5px;
+}
+
+.NavItem1Hide{
+  display: none;
+}
+
+.NavItem2Hide{
+  display: none;
+}
+
+.NavItem3Hide{
+  display: none;
+}
+
+.NavItem4Hide{
+  display: none;
+}
+
+
+.SelectItem1Hide{
+  display: block;
+}
+
+.SelectItem2Hide{
+  display: block;
+}
+
+.SelectItem3Hide{
+  display: block;
+}
+
+.SelectItem4Hide{
+  display: block;
+}
+
+@media (max-width: 560px) {
+  .NavItems{
+    display: none;
+  }
+}
+
+@media (min-width: 560px) {
+  .NavItem1Hide {
+    display: block;
+  }
+  .SelectItem1Hide {
+    display: none;
+  }
+}
+@media (min-width: 600px) {
+  .NavItem2Hide {
+    display: block;
+  }
+  .SelectItem2Hide {
+    display: none;
+  }
+}
+
+@media (min-width: 700px) {
+  .NavItem3Hide {
+    display: block;
+  }
+  .SelectItem3Hide {
+    display: none;
+  }
+}
+
+@media (min-width: 750px) {
+  .NavItem4Hide {
+    display: block;
+  }
+  .SelectItem4Hide {
+    display: none;
+  }
 }
