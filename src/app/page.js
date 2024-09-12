@@ -1,4 +1,5 @@
 import Post from "@/components/Post";
+import UploadImage from "@/components/UploadImage";
 import { db } from "@/lib/db";
 import Image from "next/image";
 
