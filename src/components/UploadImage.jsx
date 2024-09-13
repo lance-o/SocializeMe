@@ -39,7 +39,7 @@ export default function UploadMedia() {
     }
 
     // Get the public URL of the uploaded media
-    const mediaUrl = `${supabaseUrl}/storage/v1/object/public/media/${data.path}`;
+    const mediaUrl = `${supabaseUrl}/storage/v1/object/public/images/${data.path}`;
     console.log("Media uploaded:", mediaUrl);
     if (mediaType === "image") {
       document.getElementById("imageUrl").value = mediaUrl;
