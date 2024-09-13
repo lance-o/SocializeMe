@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { createClient } from "@supabase/supabase-js";
 import "./UploadImage.css";
 
@@ -13,6 +13,7 @@ export default function UploadMedia() {
   const [media, setMedia] = useState(null); // For both images and videos
   const [mediaType, setMediaType] = useState(null); // To store media type (image/video)
   const [previewUrl, setPreviewUrl] = useState(null); // Preview for the uploaded media
+  const fileInputRef = useRef(null); // Reference to the file input
 
   // Handle file change (both images and videos)
   const handleMediaChange = (event) => {
@@ -46,6 +47,8 @@ export default function UploadMedia() {
       document.getElementById("videoUrl").value = mediaUrl;
     }
     // Update the hidden input with the media URL (for forms, if needed)
+    fileInputRef.current.value = null;
+    setPreviewUrl(null); // Clear the preview
   };
 
   return (
@@ -56,6 +59,7 @@ export default function UploadMedia() {
         type="file"
         onChange={handleMediaChange}
         accept="image/*,video/*"
+        ref={fileInputRef}
       />
       <button type="button" onClick={handleMediaUpload}>
         Upload
