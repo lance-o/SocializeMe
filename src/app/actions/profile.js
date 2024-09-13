@@ -30,6 +30,16 @@ export async function profileFormSubmit(formData) {
       0,
     ]
   );
+  const userResponse = await db.query(
+    `SELECT *FROM users WHERE clerk_user_id=$1`,
+    [currentuser?.id]
+  );
+
+  const user = userResponse.rows[0];
+  await db.query(`INSERT INTO user_roles (user_id,role_id) VALUES($1,$2)`, [
+    user.id,
+    1,
+  ]);
 
   revalidatePath("/profile");
   redirect("/profile");
