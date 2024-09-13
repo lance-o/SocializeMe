@@ -51,7 +51,8 @@ export default function Header() {
             <option value="">test2</option>
             <option value="">test3</option>
           </select>
-
+          
+          
           <SearchBarComponent></SearchBarComponent>
         </div>
       </div>
