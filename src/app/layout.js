@@ -28,12 +28,6 @@ export default function RootLayout({ children }) {
       >
         <ClerkProvider>
           <Header />
-<<<<<<< HEAD
-=======
-
-          <p>This is a test line</p>
-
->>>>>>> origin/main
           {children}
         </ClerkProvider>
       </body>
