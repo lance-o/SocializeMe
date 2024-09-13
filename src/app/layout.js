@@ -30,6 +30,7 @@ export default function RootLayout({ children }) {
           <Header />
 
           <UploadMedia />
+          <p>This is a test line</p>
           {children}
         </ClerkProvider>
       </body>
