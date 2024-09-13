@@ -1,5 +1,5 @@
 .header {
-  background-color: #1660d1 ;
+  background-color: #1660d1;
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
@@ -8,19 +8,26 @@
 
 .headerImage {
   z-index: 2;
-  display: flex;
   align-items: center;
   border-radius: 50px;
   transform: scale(1.03);
   position: absolute;
 }
 
-.headerOverlay {
-  opacity: 0.12;
-
+h1 {
+  display: "flex";
+  flex-direction: row;
+  font-size: large;
+  color: "#fff";
+  align-items: "center";
 }
 
-option, a{
+.headerOverlay {
+  opacity: 0.12;
+}
+
+option,
+a {
   color: #ffffff;
 }
 
@@ -30,10 +37,10 @@ option, a{
   align-items: end;
 }
 
-.ClerkUserArea{
-  background-color: rgba(255,255,255,0.1);
+.ClerkUserArea {
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 5px;
-  padding:5px;
+  padding: 5px;
 }
 
 .righside_child {
@@ -41,70 +48,70 @@ option, a{
   display: flex;
   gap: 0.5rem;
 }
+
 .header select {
   /* border: 1px solid #ffffff; */
   box-shadow: 0 0 2px rgb(0, 0, 0);
   border-radius: 5px;
   background: none;
   background-color: #ffffff;
-  height:40px;
+  height: 40px;
   transition: selectcolor 1s ease-in-out forward;
 }
 
 .header select:hover {
-  background-color:#ffffff;
+  background-color: #ffffff;
   box-shadow: 0 0 4px rgb(0, 0, 0);
   /* border: 2px solid rgb(80, 176, 203); */
   transform: scale(1.03);
   transform: rotateX("5deg");
 }
 
-.NavItems{
+.NavItems {
   display: flex;
   align-items: center;
   justify-content: end;
-  gap:15px;
+  gap: 15px;
   background-color: rgba(255, 255, 255, 0.301);
   padding-left: 20px;
   padding-right: 20px;
   border-radius: 5px;
 }
 
-.NavItem1Hide{
+.NavItem1Hide {
   display: none;
 }
 
-.NavItem2Hide{
+.NavItem2Hide {
   display: none;
 }
 
-.NavItem3Hide{
+.NavItem3Hide {
   display: none;
 }
 
-.NavItem4Hide{
+.NavItem4Hide {
   display: none;
 }
 
-
-.SelectItem1Hide{
+.SelectItem1Hide {
   display: block;
 }
 
-.SelectItem2Hide{
+.SelectItem2Hide {
   display: block;
 }
 
-.SelectItem3Hide{
+.SelectItem3Hide {
   display: block;
 }
 
-.SelectItem4Hide{
+.SelectItem4Hide {
   display: block;
 }
 
 @media (max-width: 560px) {
-  .NavItems{
+  .NavItems {
     display: none;
   }
 }
@@ -113,10 +120,12 @@ option, a{
   .NavItem1Hide {
     display: block;
   }
+
   .SelectItem1Hide {
     display: none;
   }
 }
+
 @media (min-width: 600px) {
   .NavItem2Hide {
     display: block;
@@ -130,6 +139,7 @@ option, a{
   .NavItem3Hide {
     display: block;
   }
+
   .SelectItem3Hide {
     display: none;
   }
@@ -139,6 +149,7 @@ option, a{
   .NavItem4Hide {
     display: block;
   }
+
   .SelectItem4Hide {
     display: none;
   }
