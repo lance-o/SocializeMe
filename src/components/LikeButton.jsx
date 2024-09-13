@@ -6,7 +6,9 @@ export function LikeButton({ like, existingLike }) {
   const { pending, data, method, action } = useFormStatus();
   return (
     <>
-      <button formAction={like}>{existingLike ? "Unlike" : "Like"}</button>
+      {existingLike 
+      ? <button formAction={like} className="border text-left rounded px-2 bg-green-300 hover:bg-red-400 before:content-['Liked'] hover:before:content-['Unlike']"></button>
+      : <button formAction={like} className="border text-left rounded px-2 hover:bg-green-200">Like</button>}
     </>
   );
 }
