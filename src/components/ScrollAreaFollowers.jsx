@@ -4,8 +4,14 @@ import * as ScrollArea from "@radix-ui/react-scroll-area";
 import "./ScrollAreaFollowings.css";
 
 import AvatarDisplayTable from "./AvatarForTable";
+import Link from "next/link";
 
 export default function ScrollAreaFollowers(props) {
+  const canDeleteOrEdit =
+    props.curRole === "manager" || // Manager can access all
+    (props.curRole === "admin" && props.reviewRole === "normal_user") ||
+    (props.curRole === "normal_user" && props.userId === props.reviewId);
+
   return (
     <ScrollArea.Root className="ScrollAreaRoot">
       <ScrollArea.Viewport className="ScrollAreaViewport">
@@ -23,19 +29,41 @@ export default function ScrollAreaFollowers(props) {
             <tbody>
               {props.followers.map((following) => (
                 <tr className="trBody" key={following.id}>
-                  <td>
+                  <td
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      gap: "0.25rem",
+                    }}
+                  >
                     <AvatarDisplayTable src={following.profile_picture_url} />
-                    {following.first_name}
-                  </td>
-                  <td>{following.email}</td>
-                  <td>
-                    <button
-                      onClick={() => {
-                        props.unFollow(props.userId, following.id);
-                      }}
+                    <Link
+                      style={{ color: "purple" }}
+                      href={`/profile/${following.id}`}
                     >
-                      Remove
-                    </button>
+                      {following.first_name}
+                    </Link>
+                  </td>
+                  <td>
+                    <Link
+                      style={{ color: "purple" }}
+                      href={`/profile/${following.id}`}
+                    >
+                      {following.email}
+                    </Link>
+                  </td>
+                  <td>
+                    {canDeleteOrEdit && (
+                      <>
+                        <button
+                          onClick={() => {
+                            props.unFollow(props.userId, following.id);
+                          }}
+                        >
+                          Remove
+                        </button>
+                      </>
+                    )}
                   </td>
                 </tr>
               ))}
