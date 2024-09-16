@@ -8,6 +8,7 @@ import "./profile.css";
 import { fetchUser } from "../actions/fetchUser";
 import Link from "next/link";
 import { fetchRole } from "../actions/fetchRole";
+import Follow from "@/components/Follow";
 
 export default async function ProfilePage() {
   try {
@@ -59,9 +60,12 @@ export default async function ProfilePage() {
           <p>badge</p>
         </div>
         <div>
+          <Follow userId={theUser.id} followedUserId={theUser.id}></Follow>
+        </div>
+        {/* <div>
           <Link href="#">followings</Link>
           <Link href="#">followers</Link>
-        </div>
+        </div> */}
         <div className="buttonOrder">
           <Link href="#">users</Link>
           <Link href="#">favourite</Link>
