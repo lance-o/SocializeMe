@@ -4,19 +4,21 @@ import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import "./FollowingsAlertDialog.css";
 import ScrollAreaFollowings from "./ScrollAreaFollowings";
 import { removeFromFollowings } from "@/app/actions/removeFromFollowings";
+import { removeFromFollowers } from "@/app/actions/removeFromFollowers";
+import ScrollAreaFollowers from "./ScrollAreaFollowers";
 
-export default function FollowingsAlertDialog(props) {
+export default function FollowersAlertDialog(props) {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
-        <button className="Button violet">Followings</button>
+        <button className="Button violet">Followers</button>
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="AlertDialogOverlay" />
         <AlertDialog.Content className="AAlertDialogContent">
-          <ScrollAreaFollowings
-            unFollow={removeFromFollowings}
-            followings={props.followings}
+          <ScrollAreaFollowers
+            unFollow={removeFromFollowers}
+            followers={props.followers}
             userId={props.userId}
           />
           <AlertDialog.Cancel asChild>

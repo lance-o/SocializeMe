@@ -16,6 +16,8 @@ import AlertDialogDemo from "@/components/AlertDialog";
 import Follow from "@/components/Follow";
 import FollowingsAlertDialog from "@/components/FollowingsAlertDialog";
 import { fetchFollowings } from "../actions/fetchFollowins";
+import { fetchFollowers } from "../actions/fetchFollowers";
+import FollowersAlertDialog from "@/components/FollowerAlertDialog";
 
 export default async function ProfilePage() {
   try {
@@ -45,6 +47,8 @@ export default async function ProfilePage() {
     //fetching followings
     const followingsList = await fetchFollowings(theUser?.id); // List of user who current user is following
     console.log(followingsList);
+    //fetching followers
+    const followersList = await fetchFollowers(theUser?.id);
 
     return (
       <div className="profilePage">
@@ -74,7 +78,11 @@ export default async function ProfilePage() {
                 followings={followingsList}
                 userId={theUser?.id}
               />
-              <Link href="#">followers</Link>
+              <FollowersAlertDialog
+                followers={followersList}
+                userId={theUser?.id}
+              />
+
               <div>
                 <Follow
                   userId={theUser.id}
