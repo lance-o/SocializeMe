@@ -23,8 +23,7 @@ export default async function ProfilePage() {
 
     //checking if user has profile or not
     const theUser = await fetchUser(curUser?.id);
-    console.log("profile");
-    console.log(theUser.profile_image);
+
     if (!theUser) {
       // here if user is not available in users Table it return the form for filling it
       return (
@@ -42,7 +41,7 @@ export default async function ProfilePage() {
           <div className="info">
             <div>
               <Image
-                src={`${theUser.profile_image}`}
+                src={`${theUser?.profile_image}`}
                 width={200}
                 height={200}
                 style={{ objectFit: "cover" }}
@@ -50,7 +49,7 @@ export default async function ProfilePage() {
               />
             </div>
 
-            <p>{`${theUser.first_name} ${theUser.last_name}`}</p>
+            <p>{`${theUser.first_name} ${theUser?.last_name}`}</p>
             <p>{`${theUser.email}`}</p>
             <p>Role: {`${role.role_name}`}</p>
             <Link href="#">myposts</Link>
