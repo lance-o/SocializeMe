@@ -19,6 +19,8 @@ import { fetchFollowings } from "../actions/fetchFollowins";
 import { fetchFollowers } from "../actions/fetchFollowers";
 import FollowersAlertDialog from "@/components/FollowerAlertDialog";
 
+import EditProfile from "@/components/EditProfile";
+
 export default async function ProfilePage() {
   try {
     const curUser = await currentUser();
@@ -52,6 +54,7 @@ export default async function ProfilePage() {
 
     return (
       <div className="profilePage">
+        <EditProfile />
         <div>
           <div className="badgeAndInfo">
             <div className="info">
@@ -74,6 +77,10 @@ export default async function ProfilePage() {
         <div className="handlingButtons">
           <div className="followAndBtns">
             <div className="FollowBtn">
+<<<<<<< HEAD
+              <Link href="#">followings</Link>
+              <Link href="#">followers</Link>
+=======
               <FollowingsAlertDialog
                 followings={followingsList}
                 userId={theUser?.id}
@@ -83,6 +90,7 @@ export default async function ProfilePage() {
                 userId={theUser?.id}
               />
 
+>>>>>>> origin/main
               <div>
                 <Follow
                   userId={theUser.id}
