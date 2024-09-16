@@ -8,12 +8,12 @@ export function LikeButton({ like, existingLike, numLikes }) {
     <>
       {existingLike 
       ? <button formAction={like} className="border relative text-left rounded px-2 bg-green-300 hover:bg-red-400 before:content-['Liked'] hover:before:content-['Unlike']">
-        <p className="absolute right-4 top-0">{numLikes}</p>
+        <p className="absolute right-2 top-0">{numLikes}</p>
       </button>
 
       : <button formAction={like} className="border relative text-left rounded px-2 hover:bg-green-200">
         Like
-        <p className="absolute right-4 top-0">{numLikes}</p>
+        <p className="absolute right-2 top-0">{numLikes}</p>
         </button>}
 
       
