@@ -15,7 +15,7 @@ export default function Header() {
           height={100}
           alt="logo"
         ></Image>
-        <h1>Socialize Me!</h1>
+
       </div>
       <div
         className="headerOverlay"
