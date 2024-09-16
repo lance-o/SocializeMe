@@ -1,0 +1,11 @@
+.ratingGrid{
+    display:grid;
+    column-gap:2px;
+    grid-template-columns: 200px 200px;
+}
+
+@media (max-width: 500px) {
+    .ratingGrid{
+        grid-template-columns:100px 60px;
+    }
+  }

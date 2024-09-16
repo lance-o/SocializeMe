@@ -1,0 +1,39 @@
+.postBody{
+    border: solid rgba(0, 0, 0, 0.137) 1px;
+    border-radius: 10px;
+    margin: 2px;
+    padding: 4px;
+    width: 500px;
+}
+
+.postContent{
+    border: solid rgba(0, 0, 0, 0.137) 1px;
+    border-radius: 10px;
+    margin: 2px;
+    padding: 4px;
+    width: 480px;
+}
+
+.postContentText{
+    padding-left:8px;
+}
+
+.postMediaContainer{
+    border: solid rgba(0, 0, 0, 0.137) 1px;
+    border-radius: 1px;
+    margin: 2px;
+    margin-left: 5px;
+    padding: 7px;
+    width: 474px;
+    max-height: 300px;
+}
+
+@media (max-width: 500px) {
+    .postBody{
+        width: 90vw;
+    }
+
+    .postContent{
+        width: 85vw;
+    }
+  }
