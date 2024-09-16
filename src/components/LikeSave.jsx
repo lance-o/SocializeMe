@@ -56,9 +56,22 @@ async function handleLike(userId, postId){
   revalidatePath("/");
 }
 
+async function getLikeCount(postId){
+  const result = await db.query(`SELECT COUNT(*) FROM user_likes WHERE post_id = $1; `,[postId])
+  let count = result.rows[0].count;
+  if(count>=1000000){
+    count = count/1000000 + "M";
+  }
+  else if(count>=1000){
+    count = count/1000 + "K";
+  }
+  return count;
+}
+
 export default async function LikeSave(params) {
   const existingLike = await getExistingLike(params.userId, params.postId);
   const existingSave = await getExistingSave(params.userId, params.postId);
+  let numLikes = await getLikeCount(params.postId);
 
 
   async function like(){
@@ -78,7 +91,8 @@ export default async function LikeSave(params) {
       <form className="grid grid-cols-[200px,200px] grid-rows-1 gap-1">
         <LikeButton
           like={like}
-          existingLike={existingLike}/>
+          existingLike={existingLike}
+          numLikes={numLikes}/>
 
         <SaveButton
           save={save}

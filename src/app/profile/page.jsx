@@ -8,9 +8,12 @@ import "./profile.css";
 import { fetchUser } from "../actions/fetchUser";
 import Link from "next/link";
 import { fetchRole } from "../actions/fetchRole";
+
 import AvatarDisplay from "@/components/Avatar";
 
 import AlertDialogDemo from "@/components/AlertDialog";
+
+import Follow from "@/components/Follow";
 
 export default async function ProfilePage() {
   try {
@@ -65,6 +68,9 @@ export default async function ProfilePage() {
             <div className="FollowBtn">
               <Link href="#">followings</Link>
               <Link href="#">followers</Link>
+                <div>
+          <Follow userId={theUser.id} followedUserId={theUser.id}></Follow>
+        </div>
             </div>
             <div className="buttonOrder">
               <Link href="#">myposts</Link>
@@ -75,6 +81,7 @@ export default async function ProfilePage() {
               </div>
             </div>
           </div>
+
         </div>
       </div>
     );

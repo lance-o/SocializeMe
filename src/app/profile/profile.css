@@ -26,6 +26,13 @@
   pointer-events: none; /* Prevent interaction with the glow */
 }
 
+.follow{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 .profilePage:hover::before {
   top: 0;
 }
