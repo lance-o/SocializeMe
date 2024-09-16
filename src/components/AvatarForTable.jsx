@@ -5,7 +5,7 @@ import "./AvatarForTable.css";
 export default function AvatarDisplayTable(props) {
   return (
     <div style={{ display: "flex", gap: 20 }}>
-      <Avatar.Root className="AvatarRoot">
+      <Avatar.Root className="AvatarRootMain">
         <Avatar.Image
           className="AvatarImage"
           src={props.src}
