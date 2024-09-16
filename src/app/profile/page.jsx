@@ -15,6 +15,8 @@ import AlertDialogDemo from "@/components/AlertDialog";
 
 import Follow from "@/components/Follow";
 
+import EditProfile from "@/components/EditProfile";
+
 export default async function ProfilePage() {
   try {
     const curUser = await currentUser();
@@ -43,6 +45,7 @@ export default async function ProfilePage() {
 
     return (
       <div className="profilePage">
+        <EditProfile />
         <div>
           <div className="badgeAndInfo">
             <div className="info">
@@ -68,9 +71,12 @@ export default async function ProfilePage() {
             <div className="FollowBtn">
               <Link href="#">followings</Link>
               <Link href="#">followers</Link>
-                <div>
-          <Follow userId={theUser.id} followedUserId={theUser.id}></Follow>
-        </div>
+              <div>
+                <Follow
+                  userId={theUser.id}
+                  followedUserId={theUser.id}
+                ></Follow>
+              </div>
             </div>
             <div className="buttonOrder">
               <Link href="#">myposts</Link>
@@ -81,7 +87,6 @@ export default async function ProfilePage() {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     );
