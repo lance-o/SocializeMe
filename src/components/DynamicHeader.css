@@ -43,9 +43,10 @@ a {
   padding: 5px;
 }
 
-.righside_child {
+.rightside_child {
   transform: translateY(30px);
   display: flex;
+  flex-direction: row;
   gap: 0.5rem;
 }
 
