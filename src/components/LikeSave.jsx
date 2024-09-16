@@ -2,6 +2,8 @@ import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { LikeButton } from "./LikeButton";
 import { SaveButton } from "./SaveButton";
+
+import "./LikeSave.css";
 //import { revalidatePath } from "next/cache";
 
 async function getExistingSave(userId, postId) {
@@ -88,7 +90,7 @@ export default async function LikeSave(params) {
   <>
     {params.userId !== null
     ? 
-      <form className="grid grid-cols-[200px,200px] grid-rows-1 gap-1">
+      <form className="ratingGrid">
         <LikeButton
           like={like}
           existingLike={existingLike}
