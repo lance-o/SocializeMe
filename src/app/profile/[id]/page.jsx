@@ -12,7 +12,8 @@ import AvatarDisplay from "@/components/Avatar";
 
 import AlertDialogDemo from "@/components/AlertDialog";
 
-export default async function ProfilePage() {
+export default async function ProfilePage({ params }) {
+  const id = params.id;
   try {
     const curUser = await currentUser();
     if (!curUser) {
@@ -25,7 +26,7 @@ export default async function ProfilePage() {
     }
 
     //checking if user has profile or not
-    const theUser = await fetchUser(curUser?.id);
+    const theUser = await fetchUser(id);
 
     if (!theUser) {
       // here if user is not available in users Table it return the form for filling it

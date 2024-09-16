@@ -9,9 +9,9 @@
   box-shadow: 0 0 15px #47d1b8;
   text-align: center;
   position: relative;
-  overflow: hidden;
+
   gap: 0.25rem;
-  height: 100vh;
+  height: 100%;
 }
 .profilePage::before {
   content: "";
@@ -47,7 +47,12 @@
   font-weight: 600;
   text-shadow: 0 0 4px black;
 }
-.profilePage a {
+.FollowBtn {
+  display: flex;
+  flex-direction: row;
+  gap: 2.25rem;
+}
+.FollowBtn a {
   border: 1px solid rgb(242, 255, 0);
   border-radius: 5px;
   background-color: #1660d1;
@@ -55,8 +60,9 @@
   font-weight: 600;
   text-decoration: none;
   transition: 0.25s ease-in-out;
-  padding: 3%;
+  padding: 2%;
   box-shadow: 0 2px 8px #e1ff00;
+  width: 7rem;
 }
 .profilePage a:hover {
   text-decoration: underline;
@@ -65,12 +71,31 @@
   box-shadow: 0 0 8px black;
   color: black;
 }
+
 /* #A7A8AE (grey), #FFFFFF (white), #1660D1 (blue), #47D1B8 (green), #9FC9ED (pastel blue) */
 .buttonOrder {
+  padding-top: 7%;
   margin-top: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  align-items: center;
+  gap: 0.75rem;
+}
+.buttonOrder a {
+  border: 1px solid rgb(242, 255, 0);
+  border-radius: 5px;
+  background-color: #1660d1;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.25s ease-in-out;
+  padding: 2%;
+  box-shadow: 0 2px 8px #e1ff00;
+  width: 7rem;
+}
+.followAndBtns {
+  display: flex;
+  flex-direction: column;
 }
 .profilePage button {
   background: none;
@@ -89,4 +114,13 @@ button:hover {
   transition: 1s ease-in-out all;
 }
 @media (min-width: 900px) {
+  .profilePage {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 3rem;
+  }
+  .handlingButtons {
+    display: flex;
+    height: 24rem;
+  }
 }
