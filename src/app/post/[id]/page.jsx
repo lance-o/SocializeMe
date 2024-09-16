@@ -1,3 +1,3 @@
 export default function PostPage() {
-  return <div>This is the new post page</div>;
+  return <div>This is the single post page</div>;
 }
