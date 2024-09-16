@@ -14,6 +14,8 @@ import AvatarDisplay from "@/components/Avatar";
 import AlertDialogDemo from "@/components/AlertDialog";
 
 import Follow from "@/components/Follow";
+import FollowingsAlertDialog from "@/components/FollowingsAlertDialog";
+import { fetchFollowings } from "../actions/fetchFollowins";
 
 export default async function ProfilePage() {
   try {
@@ -40,6 +42,9 @@ export default async function ProfilePage() {
     }
     //feching role
     const role = await fetchRole(theUser?.id);
+    //fetching followings
+    const followingsList = await fetchFollowings(theUser?.id); // List of user who current user is following
+    console.log(followingsList);
 
     return (
       <div className="profilePage">
@@ -59,18 +64,23 @@ export default async function ProfilePage() {
           <div className="buttonOrder">
             <Link href="#">Badge role</Link>
             <Link href="#">edit profile</Link>
-
-            <AlertDialogDemo id={theUser.id} />
+            <AlertDialogDemo id={theUser.id} /> {/* deleteAccount */}
           </div>
         </div>
         <div className="handlingButtons">
           <div className="followAndBtns">
             <div className="FollowBtn">
-              <Link href="#">followings</Link>
+              <FollowingsAlertDialog
+                followings={followingsList}
+                userId={theUser?.id}
+              />
               <Link href="#">followers</Link>
-                <div>
-          <Follow userId={theUser.id} followedUserId={theUser.id}></Follow>
-        </div>
+              <div>
+                <Follow
+                  userId={theUser.id}
+                  followedUserId={theUser.id}
+                ></Follow>
+              </div>
             </div>
             <div className="buttonOrder">
               <Link href="#">myposts</Link>
@@ -81,7 +91,6 @@ export default async function ProfilePage() {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     );
