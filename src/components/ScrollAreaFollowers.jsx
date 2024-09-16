@@ -1,19 +1,16 @@
 "use client";
 import React from "react";
 import * as ScrollArea from "@radix-ui/react-scroll-area";
-import "./ScrollArea.css";
-import AvatarDisplay from "./Avatar";
+import "./ScrollAreaFollowings.css";
+
 import AvatarDisplayTable from "./AvatarForTable";
 
-export default function ScrollAreaFollowings(props) {
-  const followings = props.followings;
-  console.log("inScroll");
-  console.log(followings);
+export default function ScrollAreaFollowers(props) {
   return (
     <ScrollArea.Root className="ScrollAreaRoot">
       <ScrollArea.Viewport className="ScrollAreaViewport">
         <div style={{ padding: "15px 20px" }}>
-          <div className="Text">Followings</div>
+          <div className="Text">Followers</div>
 
           <table>
             <thead>
@@ -24,7 +21,7 @@ export default function ScrollAreaFollowings(props) {
               </tr>
             </thead>
             <tbody>
-              {followings.map((following) => (
+              {props.followers.map((following) => (
                 <tr className="trBody" key={following.id}>
                   <td>
                     <AvatarDisplayTable src={following.profile_picture_url} />
