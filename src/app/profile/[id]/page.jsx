@@ -8,14 +8,12 @@ import "./profile.css";
 import { fetchUser } from "../actions/fetchUser";
 import Link from "next/link";
 import { fetchRole } from "../actions/fetchRole";
-
 import AvatarDisplay from "@/components/Avatar";
 
 import AlertDialogDemo from "@/components/AlertDialog";
 
-import Follow from "@/components/Follow";
-
-export default async function ProfilePage() {
+export default async function ProfilePage({ params }) {
+  const id = params.id;
   try {
     const curUser = await currentUser();
     if (!curUser) {
@@ -28,7 +26,7 @@ export default async function ProfilePage() {
     }
 
     //checking if user has profile or not
-    const theUser = await fetchUser(curUser?.id);
+    const theUser = await fetchUser(id);
 
     if (!theUser) {
       // here if user is not available in users Table it return the form for filling it
@@ -68,9 +66,6 @@ export default async function ProfilePage() {
             <div className="FollowBtn">
               <Link href="#">followings</Link>
               <Link href="#">followers</Link>
-                <div>
-          <Follow userId={theUser.id} followedUserId={theUser.id}></Follow>
-        </div>
             </div>
             <div className="buttonOrder">
               <Link href="#">myposts</Link>
@@ -81,7 +76,6 @@ export default async function ProfilePage() {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     );
