@@ -18,6 +18,9 @@ export default function FollowingsAlertDialog(props) {
             unFollow={removeFromFollowings}
             followings={props.followings}
             userId={props.userId}
+            curRole={props.curRole}
+            reviewRole={props.reviewRole}
+            reviewId={props.reviewId}
           />
           <AlertDialog.Cancel asChild>
             <button className="Button mauve" style={{ margin: "2%" }}>

@@ -3,7 +3,7 @@ import ProfileForm from "@/components/ProfileForm";
 import { currentUser } from "@clerk/nextjs/server";
 
 import { profileFormSubmit } from "../actions/profile";
-import { SignInButton } from "@clerk/nextjs";
+import { SignInButton, SignOutButton } from "@clerk/nextjs";
 import "./profile.css";
 import { fetchUser } from "../actions/fetchUser";
 import Link from "next/link";
@@ -27,8 +27,9 @@ export default async function ProfilePage() {
     if (!curUser) {
       return (
         <>
-          <p>you need to Login first</p>
+          <p style={{ color: "red" }}>you need to Login first</p>
           <SignInButton />
+          <SignOutButton />
         </>
       );
     }
@@ -54,7 +55,6 @@ export default async function ProfilePage() {
 
     return (
       <div className="profilePage">
-        <EditProfile />
         <div>
           <div className="badgeAndInfo">
             <div className="info">
@@ -70,7 +70,7 @@ export default async function ProfilePage() {
 
           <div className="buttonOrder">
             <Link href="#">Badge role</Link>
-            <Link href="#">edit profile</Link>
+            <EditProfile />
             <AlertDialogDemo id={theUser.id} /> {/* deleteAccount */}
           </div>
         </div>
@@ -80,18 +80,25 @@ export default async function ProfilePage() {
               <FollowingsAlertDialog
                 followings={followingsList}
                 userId={theUser?.id}
+                curRole={role.role_name}
+                reviewRole={role.role_name}
+                reviewId={theUser.id}
               />
               <FollowersAlertDialog
                 followers={followersList}
                 userId={theUser?.id}
+                curId={theUser.id}
+                curRole={role.role_name}
+                reviewRole={role.role_name}
+                reviewId={theUser.id}
               />
 
-              <div>
+              {/* <div>
                 <Follow
                   userId={theUser.id}
                   followedUserId={theUser.id}
                 ></Follow>
-              </div>
+              </div> */}
             </div>
             <div className="buttonOrder">
               <Link href="#">myposts</Link>
