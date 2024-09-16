@@ -77,10 +77,6 @@ export default async function ProfilePage() {
         <div className="handlingButtons">
           <div className="followAndBtns">
             <div className="FollowBtn">
-<<<<<<< HEAD
-              <Link href="#">followings</Link>
-              <Link href="#">followers</Link>
-=======
               <FollowingsAlertDialog
                 followings={followingsList}
                 userId={theUser?.id}
@@ -90,7 +86,6 @@ export default async function ProfilePage() {
                 userId={theUser?.id}
               />
 
->>>>>>> origin/main
               <div>
                 <Follow
                   userId={theUser.id}
