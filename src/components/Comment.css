@@ -1,4 +1,4 @@
-.postBody{
+.commentBody{
     position: relative;
     border: solid rgba(0, 0, 0, 0.137) 1px;
     border-radius: 10px;
@@ -7,7 +7,7 @@
     width: 500px;
 }
 
-.postContent{
+.commentContent{
     border: solid rgba(0, 0, 0, 0.137) 1px;
     border-radius: 10px;
     margin: 2px;
@@ -15,27 +15,16 @@
     width: 480px;
 }
 
-.postContentText{
+.commentContentText{
     padding-left:8px;
-    color: black;
-}
-
-.postMediaContainer{
-    border: solid rgba(0, 0, 0, 0.137) 1px;
-    border-radius: 1px;
-    margin: 2px;
-    margin-left: 5px;
-    padding: 7px;
-    width: 474px;
-    max-height: 300px;
 }
 
 @media (max-width: 500px) {
-    .postBody{
+    .commentBody{
         width: 90vw;
     }
 
-    .postContent{
+    .commentContent{
         width: 85vw;
     }
   }

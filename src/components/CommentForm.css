@@ -1,0 +1,93 @@
+.postForm {
+    margin-top: 3%;
+    margin-left: 25%;
+    display: flex;
+    flex-direction: column;
+    background-color: #1660d1;
+    padding: 4px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px black;
+    transition: 0.5s ease-in;
+    position: relative;
+    overflow: hidden;
+    max-width: 50%;
+  }
+  
+  .postForm::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.2)
+    );
+    transition: top 0.6s ease-in-out; /* Smooth transition */
+    z-index: 1;
+    pointer-events: none; /* Prevent interaction with t*/
+  }
+  
+  .postForm:hover::before {
+    top: 0;
+  }
+  
+  .postForm:hover {
+    background-color: #1660d1;
+  }
+  
+  .postForm * {
+    position: relative;
+    z-index: 2; /* Ensure content stays above the glow effect */
+  }
+  
+  .postForm div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .postForm #title {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0.2rem;
+  }
+  
+  .postForm textarea {
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 0.1rem;
+    resize: none;
+  }
+  
+  .postForm label {
+    font-weight: 500;
+    text-shadow: 0 0 3px #000000;
+    color: #ffffff;
+  }
+  
+  .postForm #category {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0.2rem;
+  }
+  
+  .postForm button {
+    padding-left:12px;
+    background-color: #47d1b8;
+    border-radius: 10px 25px 7px;
+    box-shadow: 0 0 3px black;
+    width: 9rem;
+    transition: 0.3s ease-in-out;
+  }
+  .postForm button:hover {
+    background-color: #00ffd0;
+    font-weight: bolder;
+    box-shadow: 0 0 15px black;
+    transform: scale(1.05);
+  }
+  
