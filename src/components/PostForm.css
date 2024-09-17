@@ -51,15 +51,28 @@
   margin-bottom: 0.25rem;
 }
 
+.postForm #title {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 0.2rem;
+}
+
 .postForm textarea {
   border: 2px solid black;
   border-radius: 10px;
+  padding: 0.2rem;
 }
 
 .postForm label {
   font-weight: 500;
   text-shadow: 0 0 3px #000000;
   color: #ffffff;
+}
+
+.postForm #category {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 0.2rem;
 }
 
 .postForm button {
