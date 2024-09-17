@@ -8,16 +8,6 @@ import "./Post.css";
 import { userAgentFromString } from "next/server";
 
 export default async function Post(params) {
-<<<<<<< HEAD
-  const session = await auth();
-  //console.log(session.userId);
-  const result = await db.query(
-    `SELECT id FROM users where clerk_user_id = '${session.userId}'`
-  );
-
-  const userId = 1;
-  // const userId = result.rows[0].id;
-=======
   const result = await db.query(`
     SELECT
       users.first_name as first_name,
@@ -36,7 +26,6 @@ export default async function Post(params) {
   const post_vid = result.rows[0].content_video_url;
   const userName = result.rows[0].first_name ? result.rows[0].first_name : "Anonymous";
 
->>>>>>> origin/main
   return (
     <div className="postBody">
       <div className="flex flex-row items-start gap-2">
