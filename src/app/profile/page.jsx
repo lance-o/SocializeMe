@@ -72,7 +72,7 @@ export default async function ProfilePage() {
 
           <div className="buttonOrder">
             <Link href="#">Badge role</Link>
-            <EditProfile />
+            <EditProfile userId={theUser.id} />
             <AlertDialogDemo id={theUser.id} /> {/* deleteAccount */}
             <SignOutButton />
           </div>
