@@ -11,7 +11,7 @@ export default function FollowersAlertDialog(props) {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
-        <button className="Button violet">Followers</button>
+        <button className="Button violet">Followers: {props.followersCount}</button>
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="AlertDialogOverlay" />
@@ -19,6 +19,7 @@ export default function FollowersAlertDialog(props) {
           <ScrollAreaFollowers
             unFollow={removeFromFollowers}
             followers={props.followers}
+            followersCount={props.followersCount}
             userId={props.userId}
             curRole={props.curRole}
             reviewRole={props.reviewRole}

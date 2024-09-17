@@ -16,6 +16,8 @@ import EditProfile from "@/components/EditProfile";
 import { fetchFollowers } from "@/app/actions/fetchFollowers";
 import { fetchFollowings } from "@/app/actions/fetchFollowins";
 import { followChecking } from "@/app/actions/followChecking";
+import { getFollowerCountTruncated } from "@/app/actions/getFollowerCount";
+import { getFollowingCountTruncated } from "@/app/actions/getFollowingCount";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -144,6 +146,7 @@ export default async function SingleProfilePage({ params }) {
             <div className="FollowBtn">
               <FollowingsAlertDialog
                 followings={followingsList}
+                followingCount={getFollowingCountTruncated(theUser?.id)}
                 userId={theUser?.id}
                 curRole={curRole.role_name}
                 reviewRole={role.role_name}
@@ -151,6 +154,7 @@ export default async function SingleProfilePage({ params }) {
               />
               <FollowersAlertDialog
                 followers={followersList}
+                followersCount={getFollowerCountTruncated(theUser?.id)}
                 userId={newUser?.id}
                 curId={theUser.id}
                 curRole={curRole.role_name}

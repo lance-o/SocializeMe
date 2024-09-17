@@ -49,6 +49,8 @@ async function getFollowerCount(followedUserId){
   return count;
 }
 
+
+
 async function getFollowingCount(followedUserId){
   const result = await db.query(`SELECT COUNT(*) FROM followers WHERE followed_by_id = $1; `,[followedUserId])
   let count = result.rows[0].count;
@@ -60,6 +62,7 @@ async function getFollowingCount(followedUserId){
   }
   return count;
 }
+
 
 export default async function Follow(params) {
   const existingFollow = await getExistingFollow(params.userId, params.followedUserId);
