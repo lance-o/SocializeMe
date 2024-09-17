@@ -36,7 +36,7 @@ export default function ScrollAreaFollowers(props) {
                       gap: "0.25rem",
                     }}
                   >
-                    <AvatarDisplayTable src={following.profile_picture_url} />
+                    <AvatarDisplayTable src={following.profile_image} />
                     <Link
                       style={{ color: "purple" }}
                       href={`/profile/${following.id}`}

@@ -13,7 +13,6 @@ import AvatarDisplay from "@/components/Avatar";
 
 import AlertDialogDemo from "@/components/AlertDialog";
 
-import Follow from "@/components/Follow";
 import FollowingsAlertDialog from "@/components/FollowingsAlertDialog";
 import { fetchFollowings } from "../actions/fetchFollowins";
 import { fetchFollowers } from "../actions/fetchFollowers";
@@ -107,9 +106,9 @@ export default async function ProfilePage() {
               </div> */}
             </div>
             <div className="buttonOrder">
-              <Link href="#">myposts</Link>
-              <Link href="#">users</Link>
-              <Link href="#">favourite</Link>
+              <Link href="/myposts">My Posts</Link>
+              <Link href="users">Users</Link>
+              <Link href="/favorites">Favorite</Link>
               <div className="badge">
                 <p>badge Display</p>
               </div>

@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
 import "./PostForm.css";
 import UploadMedia from "./UploadImage";
-import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export default async function PostForm() {
   const category_response = await db.query(`select * from categories`);
@@ -46,6 +46,7 @@ export default async function PostForm() {
         0,
       ]
     );
+    redirect("/");
   }
 
   return (
