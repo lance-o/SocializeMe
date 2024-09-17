@@ -104,7 +104,7 @@ export default async function ProfilePage() {
             <div className="buttonOrder">
               <Link href="#">myposts</Link>
               <Link href="#">users</Link>
-              <Link href="#">favourite</Link>
+              <Link href="/favorites">Favorite</Link>
               <div className="badge">
                 <p>badge Display</p>
               </div>
