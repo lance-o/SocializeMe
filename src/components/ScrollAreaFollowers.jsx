@@ -10,7 +10,8 @@ export default function ScrollAreaFollowers(props) {
   const canDeleteOrEdit =
     props.curRole === "manager" || // Manager can access all
     (props.curRole === "admin" && props.reviewRole === "normal_user") ||
-    (props.curRole === "normal_user" && props.userId === props.reviewId);
+    (props.curRole === "normal_user" && props.userId === props.reviewId) ||
+    (props.curRole === "admin" && props.userId === props.reviewId);
 
   return (
     <ScrollArea.Root className="ScrollAreaRoot">
