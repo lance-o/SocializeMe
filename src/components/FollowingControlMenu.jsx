@@ -12,7 +12,7 @@ import TrashSVG from "./TrashSVG";
 import BlockSVG from "./BlockSVG";
 import { blockUser } from "@/app/actions/blockUser";
 
-export function FollowControl(props) {
+export function FollowingControl(props) {
   const [bookmarksChecked, setBookmarksChecked] = React.useState(true);
   const [urlsChecked, setUrlsChecked] = React.useState(false);
   const [person, setPerson] = React.useState("pedro");
@@ -46,7 +46,6 @@ export function FollowControl(props) {
                 await blockUser(props.otherUser, props.userId);
               }}
             >
-              {" "}
               Block
             </button>
             <div className="RightSlot">

@@ -21,6 +21,8 @@ import { getFollowingCountTruncated } from "@/app/actions/getFollowingCount";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import checkBlock from "@/app/actions/blockCheck";
+import unBlockUser from "@/app/actions/unBlockUser";
 
 export default async function SingleProfilePage({ params }) {
   const id = params.id;
@@ -72,6 +74,7 @@ export default async function SingleProfilePage({ params }) {
     //   `SELECT EXISTS(SELECT FROM followers WHERE followed_by_id=$1 AND followed_user_id=$2) AS isFollowing`,
     //   [user.id, userId]
     // );
+
     if (theUser.id == newUser.id) {
       return (
         <>
@@ -116,6 +119,13 @@ export default async function SingleProfilePage({ params }) {
       revalidatePath(`/profile/${id}`);
       redirect(`/profile/${id}`);
     }
+
+    const isBlocked = await checkBlock(newUser.id, theUser.id);
+    console.log("profiledynamic page block check", isBlocked);
+    async function handleUnblock(formData) {
+      "use server";
+      await unBlockUser(theUser.id, newUser.id);
+    }
     return (
       <div className="profilePage">
         <div>
@@ -132,7 +142,6 @@ export default async function SingleProfilePage({ params }) {
           </div>
 
           <div className="buttonOrder">
-            <Link href="#">Badge role</Link>
             {canDeleteOrEdit && (
               <>
                 <EditProfile />
@@ -142,46 +151,55 @@ export default async function SingleProfilePage({ params }) {
           </div>
         </div>
         <div className="handlingButtons">
-          <div className="followAndBtns">
-            <div className="FollowBtn">
-              <FollowingsAlertDialog
-                followings={followingsList}
-                followingCount={getFollowingCountTruncated(theUser?.id)}
-                userId={theUser?.id}
-                curRole={curRole.role_name}
-                reviewRole={role.role_name}
-                reviewId={newUser.id}
-              />
-              <FollowersAlertDialog
-                followers={followersList}
-                followersCount={getFollowerCountTruncated(theUser?.id)}
-                userId={newUser?.id}
-                curId={theUser.id}
-                curRole={curRole.role_name}
-                reviewRole={role.role_name}
-              />
+          {!isBlocked && (
+            <div className="followAndBtns">
+              <div className="FollowBtn">
+                <FollowingsAlertDialog
+                  followings={followersList}
+                  followingCount={getFollowingCountTruncated(theUser?.id)}
+                  userId={theUser?.id}
+                  curRole={curRole.role_name}
+                  reviewRole={role.role_name}
+                  reviewId={newUser.id}
+                />
+                <FollowersAlertDialog
+                  followers={followingsList}
+                  followersCount={getFollowerCountTruncated(theUser?.id)}
+                  userId={newUser?.id}
+                  curId={theUser.id}
+                  curRole={curRole.role_name}
+                  reviewRole={role.role_name}
+                />
 
-              {/* <div>
+                {/* <div>
                 <Follow
                   userId={theUser.id}
                   followedUserId={theUser.id}
                 ></Follow>
               </div> */}
-            </div>
-            <div className="buttonOrder">
-              <SignedIn>
-                <form action={isFollowed ? handleUnfollow : handleFollow}>
-                  <button type="submit">
-                    {isFollowed ? "Unfollow" : "Follow"}
-                  </button>
-                </form>
-              </SignedIn>
-              <div className="badge">
-                <p>badge Display</p>
+              </div>
+              <div className="buttonOrder">
+                <SignedIn>
+                  <form action={isFollowed ? handleUnfollow : handleFollow}>
+                    <button type="submit">
+                      {isFollowed ? "Unfollow" : "Follow"}
+                    </button>
+                  </form>
+                </SignedIn>
+                <div className="badge">
+                  <p>badge Display</p>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
+        <>
+          {isBlocked && (
+            <form action={handleUnblock}>
+              <button>unblock</button>
+            </form>
+          )}
+        </>
       </div>
     );
   } catch (error) {
