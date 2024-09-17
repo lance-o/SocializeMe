@@ -4,7 +4,8 @@ import { fetchUserById } from "@/app/actions/fetchUserById";
 import AlertDialogDemo from "@/components/AlertDialog";
 import AvatarDisplay from "@/components/Avatar";
 import ProfileForm from "@/components/ProfileForm";
-import { SignIn, SignInButton } from "@clerk/nextjs";
+import { SignInButton, SignedIn } from "@clerk/nextjs";
+
 import { currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
 import "../profile.css";
@@ -18,6 +19,7 @@ import { followChecking } from "@/app/actions/followChecking";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+
 export default async function SingleProfilePage({ params }) {
   const id = params.id;
   const currUser = await currentUser();
@@ -26,7 +28,7 @@ export default async function SingleProfilePage({ params }) {
     if (!curUser) {
       return (
         <>
-          <p>you need to Login first</p>
+          <p style={{ color: "red" }}>you need to Login first</p>
           <SignInButton />
         </>
       );
@@ -163,11 +165,13 @@ export default async function SingleProfilePage({ params }) {
               </div> */}
             </div>
             <div className="buttonOrder">
-              <form action={isFollowed ? handleUnfollow : handleFollow}>
-                <button type="submit">
-                  {isFollowed ? "Unfollow" : "Follow"}
-                </button>
-              </form>
+              <SignedIn>
+                <form action={isFollowed ? handleUnfollow : handleFollow}>
+                  <button type="submit">
+                    {isFollowed ? "Unfollow" : "Follow"}
+                  </button>
+                </form>
+              </SignedIn>
               <div className="badge">
                 <p>badge Display</p>
               </div>
