@@ -5,6 +5,7 @@ import "./ScrollAreaFollowings.css";
 
 import AvatarDisplayTable from "./AvatarForTable";
 import Link from "next/link";
+import { FollowControl } from "./FollowControlMenu";
 
 export default function ScrollAreaFollowings(props) {
   const followings = props.followings;
@@ -14,7 +15,8 @@ export default function ScrollAreaFollowings(props) {
   const canDeleteOrEdit =
     props.curRole === "manager" || // Manager can access all
     (props.curRole === "admin" && props.reviewRole === "normal_user") ||
-    (props.curRole === "normal_user" && props.userId === props.reviewId);
+    (props.curRole === "normal_user" && props.userId === props.reviewId) ||
+    (props.curRole === "admin" && props.userId === props.reviewId);
   console.log("userReview", props.reviewId);
   console.log("user", props.userId);
   return (
@@ -62,13 +64,18 @@ export default function ScrollAreaFollowings(props) {
                   <td>
                     {canDeleteOrEdit && (
                       <>
-                        <button
+                        {/* <button
                           onClick={() => {
                             props.unFollow(props.userId, following.id);
                           }}
                         >
                           Remove
-                        </button>
+                        </button> */}
+                        <FollowControl
+                          unFollow={props.unFollow}
+                          userId={props.userId}
+                          otherUser={following.id}
+                        />
                       </>
                     )}
                   </td>
