@@ -16,7 +16,7 @@ export default function ScrollAreaFollowers(props) {
     <ScrollArea.Root className="ScrollAreaRoot">
       <ScrollArea.Viewport className="ScrollAreaViewport">
         <div style={{ padding: "15px 20px" }}>
-          <div className="Text">Followers</div>
+          <div className="Text">Followers: {props.followersCount}</div>
 
           <table>
             <thead>

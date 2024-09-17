@@ -6,6 +6,10 @@ import Image from "next/image";
 import AvatarDisplay from "./Avatar";
 import "./Post.css";
 import { userAgentFromString } from "next/server";
+import DropdownMenuDemo from "./PostOptions";
+import PostOptions from "./PostOptions";
+import { removeFromFollowers } from "@/app/actions/removeFromFollowers";
+import { followChecking } from "@/app/actions/followChecking";
 
 export default async function Post(params) {
   const result = await db.query(
@@ -13,37 +17,63 @@ export default async function Post(params) {
     SELECT
       users.first_name as first_name,
       users.profile_image as profile_image_url,
+      posts.content,
       posts.content_image_url,
-      posts.content_video_url
+      posts.content_video_url,
+      posts.user_id
     FROM posts
     LEFT join users ON users.id = posts.user_id
     where posts.id = $1`,
     [params.id]
   );
+  const post = result.rows[0];
+  
+  async function doFollowAction(){
+    "use server"
+    console.log("Tried to follow/unfollow");
+  }
 
-  console.log(params.id);
+  async function doBlockAction(){
+    "use server"
+    console.log("Tried to block/unblock");
+  }
+
+  async function doEditFunction(){
+    "use server"
+    console.log("Tried to edit post");
+  }
+
   let img_url =
     "https://qyjseqevsbahrjdnvkny.supabase.co/storage/v1/object/public/images/default.jpg?t=2024-09-16T13%3A13%3A17.184Z";
   if (result.rows[0].profile_image_url != null)
-    img_url = result.rows[0].profile_image_url;
-  const post_img = result.rows[0].content_image_url;
-  const post_vid = result.rows[0].content_video_url;
-  const userName = result.rows[0].first_name
-    ? result.rows[0].first_name
+    img_url = post.profile_image_url;
+  const post_img = post.content_image_url;
+  const post_vid = post.content_video_url;
+  const userName = post.first_name
+    ? post.first_name
     : "Anonymous";
-
   return (
     <div className="postBody">
+      <div className="absolute right-2">
+        <PostOptions 
+        userId={params.userId} 
+        posterId={post.user_id} 
+        isFollowed={await followChecking(params.userId, post.user_id)} 
+        doFollowAction={doFollowAction}
+        doBlockAction={doBlockAction}
+        doEditFunction={doEditFunction}>
+        </PostOptions>
+      </div>
       <div className="flex flex-row items-start gap-2">
         <AvatarDisplay src={img_url} css={"AvatarRootPost"} />
         <p>{userName}</p>
       </div>
       {
         // If content exists, display content & image/video. Else, display error.
-        params.content ? (
+        post.content ? (
           <>
             <div className="postContent">
-              <p className="postContentText">{params.content}</p>
+              <p className="postContentText">{post.content}</p>
             </div>
             {
               // If video or image exists, conditionally render one.
@@ -57,7 +87,7 @@ export default async function Post(params) {
                     (post_vid == null || post_vid == "") ? (
                       <Image
                         src={post_img}
-                        alt={params.content}
+                        alt={post.content}
                         width={0}
                         height={0}
                         sizes="100vw"

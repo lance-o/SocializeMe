@@ -19,10 +19,13 @@ import { fetchFollowings } from "../actions/fetchFollowins";
 import { fetchFollowers } from "../actions/fetchFollowers";
 import FollowersAlertDialog from "@/components/FollowerAlertDialog";
 
+import { getFollowerCountTruncated } from "@/app/actions/getFollowerCount";
+import { getFollowingCountTruncated } from "@/app/actions/getFollowingCount";
+
 import EditProfile from "@/components/EditProfile";
 
 export default async function ProfilePage() {
-  try {
+  {
     const curUser = await currentUser();
     if (!curUser) {
       return (
@@ -78,8 +81,9 @@ export default async function ProfilePage() {
         <div className="handlingButtons">
           <div className="followAndBtns">
             <div className="FollowBtn">
-              <FollowingsAlertDialog
+            <FollowingsAlertDialog
                 followings={followingsList}
+                followingCount={getFollowingCountTruncated(theUser?.id)}
                 userId={theUser?.id}
                 curRole={role.role_name}
                 reviewRole={role.role_name}
@@ -87,6 +91,7 @@ export default async function ProfilePage() {
               />
               <FollowersAlertDialog
                 followers={followersList}
+                followersCount={getFollowerCountTruncated(theUser?.id)}
                 userId={theUser?.id}
                 curId={theUser.id}
                 curRole={role.role_name}
@@ -113,7 +118,5 @@ export default async function ProfilePage() {
         </div>
       </div>
     );
-  } catch {
-    throw new Error("Something in Dashboard is wrong");
   }
 }

@@ -19,7 +19,6 @@ export default async function Home() {
           <Post
             key={post.id}
             id={post.id}
-            content={post.content}
             userId={userId}
           ></Post>
         );
