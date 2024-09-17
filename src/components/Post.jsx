@@ -56,25 +56,27 @@ export default async function Post(params) {
     <div className="postBody">
       <div className="absolute right-2">
         <PostOptions 
-        userId={params.userId} 
-        posterId={post.user_id} 
-        isFollowed={await followChecking(params.userId, post.user_id)} 
-        doFollowAction={doFollowAction}
-        doBlockAction={doBlockAction}
-        doEditFunction={doEditFunction}>
+          userId={params.userId} 
+          posterId={post.user_id} 
+          isFollowed={await followChecking(params.userId, post.user_id)} 
+          doFollowAction={doFollowAction}
+          doBlockAction={doBlockAction}
+          doEditFunction={doEditFunction}>
         </PostOptions>
       </div>
       <div className="flex flex-row items-start gap-2">
         <AvatarDisplay src={img_url} css={"AvatarRootPost"} />
-        <p>{userName}</p>
+        <Link href={`/profile/${post.user_id}`}><p className="text-black">{userName}</p></Link>
       </div>
       {
         // If content exists, display content & image/video. Else, display error.
         post.content ? (
           <>
-            <div className="postContent">
-              <p className="postContentText">{post.content}</p>
-            </div>
+            <Link href={`/post/${params.id}` }>
+              <div className="postContent">
+                <p className="postContentText">{post.content}</p>
+              </div>
+            </Link>
             {
               // If video or image exists, conditionally render one.
               (post_vid != null && post_vid != "") ||
