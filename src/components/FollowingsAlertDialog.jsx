@@ -9,7 +9,9 @@ export default function FollowingsAlertDialog(props) {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
-        <button className="Button violet">Followings: {props.followingCount}</button>
+        <button className="Button violet">
+          Followings: {props.followingCount}
+        </button>
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="AlertDialogOverlay" />

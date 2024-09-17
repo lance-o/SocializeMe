@@ -22,6 +22,7 @@ import { getFollowerCountTruncated } from "@/app/actions/getFollowerCount";
 import { getFollowingCountTruncated } from "@/app/actions/getFollowingCount";
 
 import EditProfile from "@/components/EditProfile";
+import { FollowControl } from "@/components/FollowControlMenu";
 
 export default async function ProfilePage() {
   {
@@ -80,7 +81,7 @@ export default async function ProfilePage() {
         <div className="handlingButtons">
           <div className="followAndBtns">
             <div className="FollowBtn">
-            <FollowingsAlertDialog
+              <FollowingsAlertDialog
                 followings={followingsList}
                 followingCount={getFollowingCountTruncated(theUser?.id)}
                 userId={theUser?.id}
