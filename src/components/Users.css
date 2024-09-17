@@ -1,0 +1,39 @@
+Table {
+  background-color: antiquewhite;
+  font-size: small;
+  color: #44025c;
+  border-radius: 15px;
+  /* width: 96vw; */
+  width: 100%;
+}
+table button {
+  cursor: pointer;
+  display: flex;
+  background-color: red;
+  width: 60px;
+  justify-content: center;
+  padding: 5%;
+  border-radius: 3px;
+}
+.trBody {
+  display: flex;
+  border-bottom: solid 1px black;
+  justify-content: space-between;
+}
+.trHead {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  border-bottom: solid 1px black;
+  margin: 0;
+}
+
+td {
+  display: flex;
+
+  align-items: center;
+  padding: 2%;
+}
+thead {
+  background-color: azure;
+}

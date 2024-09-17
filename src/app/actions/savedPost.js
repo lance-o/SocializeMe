@@ -11,6 +11,7 @@ WHERE saved_posts.user_id =$1
 `,
     [userId]
   );
+
   const savedPosts = savedPostResponse.rows;
 
   console.log(savedPosts);

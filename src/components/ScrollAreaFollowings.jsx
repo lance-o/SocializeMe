@@ -2,7 +2,7 @@
 import React from "react";
 import * as ScrollArea from "@radix-ui/react-scroll-area";
 import "./ScrollAreaFollowings.css";
-import AvatarDisplay from "./Avatar";
+
 import AvatarDisplayTable from "./AvatarForTable";
 import Link from "next/link";
 
@@ -41,7 +41,7 @@ export default function ScrollAreaFollowings(props) {
                       gap: "0.25rem",
                     }}
                   >
-                    <AvatarDisplayTable src={following.profile_picture_url} />
+                    <AvatarDisplayTable src={following.profile_image} />
                     <Link
                       style={{ color: "purple" }}
                       href={`/profile/${following.id}`}
@@ -60,21 +60,17 @@ export default function ScrollAreaFollowings(props) {
                   </td>
 
                   <td>
-                    {
-                      //prettier-ignore
-                      canDeleteOrEdit   && (
-                          <>
-                            <button
-                              onClick={() => {
-                                props.unFollow(props.userId, following.id);
-                              }}
-                            >
-                              Remove
-                            </button>
-                          </>
-                        )
-                      // prettier-ignore-end
-                    }
+                    {canDeleteOrEdit && (
+                      <>
+                        <button
+                          onClick={() => {
+                            props.unFollow(props.userId, following.id);
+                          }}
+                        >
+                          Remove
+                        </button>
+                      </>
+                    )}
                   </td>
                 </tr>
               ))}
