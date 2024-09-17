@@ -22,7 +22,6 @@ import { getFollowerCountTruncated } from "@/app/actions/getFollowerCount";
 import { getFollowingCountTruncated } from "@/app/actions/getFollowingCount";
 
 import EditProfile from "@/components/EditProfile";
-import { FollowControl } from "@/components/FollowControlMenu";
 
 export default async function ProfilePage() {
   {

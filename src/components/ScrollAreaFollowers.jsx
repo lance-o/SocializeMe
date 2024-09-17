@@ -6,6 +6,9 @@ import "./ScrollAreaFollowings.css";
 import AvatarDisplayTable from "./AvatarForTable";
 import Link from "next/link";
 
+import { FollowerControl } from "./FollowerControlMenu";
+import { removeFromFollowers } from "@/app/actions/removeFromFollowers";
+
 export default function ScrollAreaFollowers(props) {
   const canDeleteOrEdit =
     props.curRole === "manager" || // Manager can access all
@@ -28,8 +31,8 @@ export default function ScrollAreaFollowers(props) {
               </tr>
             </thead>
             <tbody>
-              {props.followers.map((following) => (
-                <tr className="trBody" key={following.id}>
+              {props.followers.map((follower) => (
+                <tr className="trBody" key={follower.id}>
                   <td
                     style={{
                       display: "flex",
@@ -37,32 +40,38 @@ export default function ScrollAreaFollowers(props) {
                       gap: "0.25rem",
                     }}
                   >
-                    <AvatarDisplayTable src={following.profile_image} />
+                    <AvatarDisplayTable src={follower.profile_image} />
                     <Link
                       style={{ color: "purple" }}
-                      href={`/profile/${following.id}`}
+                      href={`/profile/${follower.id}`}
                     >
-                      {following.first_name}
+                      {follower.first_name}
                     </Link>
                   </td>
                   <td>
                     <Link
                       style={{ color: "purple" }}
-                      href={`/profile/${following.id}`}
+                      href={`/profile/${follower.id}`}
                     >
-                      {following.email}
+                      {follower.email}
                     </Link>
                   </td>
                   <td>
                     {canDeleteOrEdit && (
                       <>
-                        <button
+                        {/* <button
                           onClick={() => {
-                            props.unFollow(props.userId, following.id);
+                            props.unFollow(props.userId, follower.id);
                           }}
                         >
                           Remove
-                        </button>
+                        </button> */}
+
+                        <FollowerControl
+                          unFollow={props.unFollow}
+                          userId={props.userId}
+                          otherUser={follower.id}
+                        />
                       </>
                     )}
                   </td>
