@@ -1,15 +1,17 @@
 "use client"
 
 import React from 'react';
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import * as Dialog from "@radix-ui/react-dialog";
 import {
     HamburgerMenuIcon,
     DotFilledIcon,
     CheckIcon,
     ChevronRightIcon,
   } from '@radix-ui/react-icons';
-
   import "./PostOptions.css";
+import EditProfile from './EditProfile';
+import EditPost from './EditPost';
 
 export default function PostOptions(params){
     let isOwnPost = params.posterId == params.userId;
@@ -44,9 +46,9 @@ export default function PostOptions(params){
                 {
                 isOwnPost
 
-                ?   <DropdownMenu.Item className="DropdownMenuItem" onSelect={editFunction}>
-                        <div>Edit post -temporary-</div>
-                    </DropdownMenu.Item>
+                ?   <div>
+                        <EditPost postContent={params.postContent} doEditFunction={params.doEditFunction}></EditPost>
+                    </div>
 
                 :   <DropdownMenu.Item className="DropdownMenuItem" onSelect={followAction}>
                         <div>Follow/Unfollow -temporary-</div>

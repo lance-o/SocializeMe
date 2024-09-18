@@ -38,9 +38,9 @@ export default async function Post(params) {
     console.log("Tried to block/unblock");
   }
 
-  async function doEditFunction(){
+  async function doEditFunction(content){
     "use server"
-    console.log("Tried to edit post");
+    console.log(content);
   }
 
   let img_url =
@@ -58,6 +58,7 @@ export default async function Post(params) {
         <PostOptions 
           userId={params.userId} 
           posterId={post.user_id} 
+          postContent={post.content}
           isFollowed={await followChecking(params.userId, post.user_id)} 
           doFollowAction={doFollowAction}
           doBlockAction={doBlockAction}
