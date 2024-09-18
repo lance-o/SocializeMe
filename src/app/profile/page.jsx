@@ -53,9 +53,12 @@ export default async function ProfilePage() {
     const followersList = await fetchFollowers(theUser?.id);
     //badge managing
     let src = "";
+    let badge = "";
     const followerCount = await getFollowerCount(theUser.id);
     {
-      if (followerCount == 1) {
+      if (followerCount == 0) {
+        badge = "";
+      } else if (followerCount == 1) {
         src = "/assets/badge1.png";
       } else if (followerCount == 50) {
         src = "/assets/badge2.png";
@@ -118,7 +121,7 @@ export default async function ProfilePage() {
               <Link href="users">Users</Link>
               <Link href="/favorites">Favorite</Link>
               <div className="badge">
-                <Image3D src={src} />
+                {followerCount == 0 ? badge : <Image3D src={src} />}
               </div>
             </div>
           </div>
