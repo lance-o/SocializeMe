@@ -14,7 +14,7 @@ import { editPost } from "@/app/actions/editPost";
 import { deletePost } from "@/app/actions/deletePost";
 import { handleFollow } from "@/app/actions/handleFollow";
 import { redirect } from "next/navigation";
-import checkMeBlocked from "@/app/actions/checkMeBlocked";
+import blockCheck from "@/app/actions/blockCheck";
 import { blockUser, blockUserDropdown } from "@/app/actions/blockUser";
 import unBlockUser, { unBlockUserDropdown } from "@/app/actions/unBlockUser";
 import { compareRole } from "@/app/actions/compareRole";
@@ -51,7 +51,8 @@ export default async function Post(params) {
       console.log("Should have blocked them")
     }
     else{
-      unBlockUserDropdown(post.user_id, params.userId);
+      unBlockUserDropdown(params.userId, post.user_id);
+      console.log("Should have unblocked them")
     }
     redirect("/");
   }
@@ -89,7 +90,7 @@ export default async function Post(params) {
           postEntirety={post}
           isSuperior={await compareRole(params.userId,post.user_id)}
           isFollowed={await followChecking(params.userId, post.user_id)} 
-          isBlocked={await checkMeBlocked(params.userId, post.user_id)}
+          isBlocked={await blockCheck(post.user_id, params.userId)}
           doFollowAction={doFollowAction}
           doBlockAction={doBlockAction}
           doEditFunction={doEditFunction}
