@@ -76,21 +76,12 @@ export default async function Users() {
                   </td>
 
                   <td>
-                    {
-                      //prettier-ignore
-                      canDeleteOrEdit  && (
-                    <>
-                    <form>
-
-                    </form>
-                      <button
-                      >
-                        Remove
-                      </button>
-                    </>
-                  )
-                      //prettier-ignore-end
-                    }
+                    {canDeleteOrEdit && (
+                      <>
+                        <form></form>
+                        <button>Remove</button>
+                      </>
+                    )}
                   </td>
                 </tr>
               );

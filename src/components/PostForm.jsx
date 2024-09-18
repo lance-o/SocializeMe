@@ -23,8 +23,8 @@ export default async function PostForm() {
 
     // Get data from the form
     const content = formData.get("content");
-    const imageUrl = formData.get("imageUrl"); // Will be set by client-side upload
-    const videoUrl = formData.get("videoUrl"); // Will be set by client-side upload
+    const imageUrl = formData.get("imageUrl"); // Will be set by client-side upload wrapprt-inside it it has 2 hidden input for this purpose
+    const videoUrl = formData.get("videoUrl"); //like imageUrl
     const category = formData.get("category");
     const title = formData.get("title");
 
