@@ -8,10 +8,19 @@ import "./Post.css";
 import { userAgentFromString } from "next/server";
 import DropdownMenuDemo from "./PostOptions";
 import PostOptions from "./PostOptions";
-import { removeFromFollowers } from "@/app/actions/removeFromFollowers";
+import { removeFromFollowings } from "@/app/actions/removeFromFollowings";
 import { followChecking } from "@/app/actions/followChecking";
+import { editPost } from "@/app/actions/editPost";
+import { deletePost } from "@/app/actions/deletePost";
+import { handleFollow } from "@/app/actions/handleFollow";
+import { redirect } from "next/navigation";
+import checkMeBlocked from "@/app/actions/checkMeBlocked";
+import { blockUser, blockUserDropdown } from "@/app/actions/blockUser";
+import unBlockUser, { unBlockUserDropdown } from "@/app/actions/unBlockUser";
+import { compareRole } from "@/app/actions/compareRole";
 
 export default async function Post(params) {
+  const id = params.id;
   const result = await db.query(
     `
     SELECT
@@ -28,19 +37,37 @@ export default async function Post(params) {
   );
   const post = result.rows[0];
   
-  async function doFollowAction(){
+  async function doFollowAction(isOwnPost, isFollowing){
     "use server"
-    console.log("Tried to follow/unfollow");
+    handleFollow(params.userId, post.user_id, isOwnPost, isFollowing);
+    redirect(`/`);
   }
 
-  async function doBlockAction(){
+  async function doBlockAction(userBlocked, userFollows){
     "use server"
-    console.log("Tried to block/unblock");
+    console.log("Hi from doblockaction", userBlocked);
+    if(!userBlocked){
+      blockUserDropdown(post.user_id, params.userId);
+      console.log("Should have blocked them")
+    }
+    else{
+      unBlockUserDropdown(post.user_id, params.userId);
+    }
+    redirect("/");
   }
 
-  async function doEditFunction(){
+  async function doDeleteFunction(){
     "use server"
-    console.log("Tried to edit post");
+    await deletePost(id);
+  }
+
+  //Passed down to the dropdown and edit post component, to recieve updates to post.
+  async function doEditFunction(formData){
+    "use server"
+    const content = formData.get("postContent");
+    const imageUrl = formData.get("imageUrl");
+    const videoUrl = formData.get("videoUrl");
+    await editPost(id, content, imageUrl, videoUrl);
   }
 
   let img_url =
@@ -52,16 +79,21 @@ export default async function Post(params) {
   const userName = post.first_name
     ? post.first_name
     : "Anonymous";
+
   return (
     <div className="postBody">
       <div className="absolute right-2">
         <PostOptions 
           userId={params.userId} 
           posterId={post.user_id} 
+          postEntirety={post}
+          isSuperior={await compareRole(params.userId,post.user_id)}
           isFollowed={await followChecking(params.userId, post.user_id)} 
+          isBlocked={await checkMeBlocked(params.userId, post.user_id)}
           doFollowAction={doFollowAction}
           doBlockAction={doBlockAction}
-          doEditFunction={doEditFunction}>
+          doEditFunction={doEditFunction}
+          doDeleteFunction={doDeleteFunction}>
         </PostOptions>
       </div>
       <div className="flex flex-row items-start gap-2">

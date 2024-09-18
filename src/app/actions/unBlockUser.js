@@ -15,3 +15,15 @@ export default async function unBlockUser(blockedBy, blockedUser) {
     throw new Error("unBlocked failed");
   }
 }
+
+export async function unBlockUserDropdown(blockedBy, blockedUser) {
+  try {
+    await db.query(
+      `DELETE FROM blocked_users WHERE blocked_user_id =$1 AND blocked_by_id=$2`,
+      [blockedUser, blockedBy]
+    );
+    revalidatePath(`/`);
+  } catch {
+    throw new Error("unBlocked failed");
+  }
+}

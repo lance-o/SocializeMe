@@ -8,6 +8,7 @@ button {
 }
 
 .DropdownMenuContent {
+    z-index: 1;
   min-width: 220px;
   background-color: white;
   border-radius: 6px;

@@ -193,16 +193,16 @@ export default async function SingleProfilePage({ params }) {
             <div className="followAndBtns">
               <div className="FollowBtn">
                 <FollowingsAlertDialog
-                  followings={followersList}
-                  followingCount={getFollowingCountTruncated(theUser?.id)}
+                  followings={followingsList}
+                  followingCount={getFollowingCountTruncated(id)}
                   userId={theUser?.id}
                   curRole={curRole.role_name}
                   reviewRole={role.role_name}
                   reviewId={newUser.id}
                 />
                 <FollowersAlertDialog
-                  followers={followingsList}
-                  followersCount={getFollowerCountTruncated(theUser?.id)}
+                  followers={followersList}
+                  followersCount={getFollowerCountTruncated(id)}
                   userId={newUser?.id}
                   curId={theUser.id}
                   curRole={curRole.role_name}

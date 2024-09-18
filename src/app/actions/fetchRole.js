@@ -12,3 +12,18 @@ WHERE user_roles.user_id=$1`,
   const userRole = userRoleResponse.rows[0];
   return userRole;
 }
+
+
+export async function fetchRoleNum(Id) {
+  const userRoleResponse = await db.query(
+    `SELECT roles.id FROM roles JOIN
+user_roles ON roles.id = user_roles.role_id
+WHERE user_roles.user_id=$1`,
+    [Id]
+  );
+
+  const userRoleId = userRoleResponse.rows[0];
+  if(userRoleId)
+    return userRoleId.id;
+  return 0;
+}
