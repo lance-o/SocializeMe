@@ -33,7 +33,7 @@ export default function UploadMediaTwo({ onUploadComplete }) {
     const mediaUrl = `${supabaseUrl}/storage/v1/object/public/images/${data.path}`;
     setUploadMessage("Upload finished!");
     setLoading(false); // Set loading to false once upload is done
-    onUploadComplete(mediaUrl); // Notify parent component
+    onUploadComplete(mediaUrl); // Notify parent component- it means that whatere is here as arguement would be used in main function in side parent component
     setPreviewUrl(null);
     fileInputRef.current.value = null;
   };

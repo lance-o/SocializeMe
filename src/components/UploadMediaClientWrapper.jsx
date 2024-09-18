@@ -1,7 +1,7 @@
-"use client"; // Mark this as a client-side component
+"use client";
 
 import { useState } from "react";
-import UploadMediaTwo from "./UploadImageTwo"; // Your existing upload component
+import UploadMediaTwo from "./UploadImageTwo";
 
 export default function UploadMediaClientWrapper() {
   const [imageUrl, setImageUrl] = useState("");

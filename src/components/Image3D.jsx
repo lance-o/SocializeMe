@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import "./Image3D.css"; // CSS file for styling
+import "./Image3D.css";
 
 import Image from "next/image";
 export default function Image3D(props) {
@@ -12,8 +12,8 @@ export default function Image3D(props) {
     const mouseY = e.clientY - top;
 
     // Calculate rotation based on mouse position
-    const rotateY = (mouseX / width) * 30 - 25; // Tilt left/right
-    const rotateX = -((mouseY / height) * 30) + 25; // Tilt up/down
+    const rotateY = (mouseX / width) * 30 - 25;
+    const rotateX = -((mouseY / height) * 30) + 25;
 
     setRotation({ rotateX, rotateY });
   };
