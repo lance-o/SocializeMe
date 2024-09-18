@@ -22,7 +22,7 @@ export async function blockUser(blockedUser, blockedBy) {
         console.log("isFollow", isFollow);
         await db.query(
           `DELETE FROM followers
-                   WHERE followed_user_id =$2 AND followed_by_id=$1`,
+                   WHERE followed_user_id =$1 AND followed_by_id=$2`,
           [blockedBy, blockedUser]
         );
       }
@@ -32,7 +32,7 @@ export async function blockUser(blockedUser, blockedBy) {
         await db.query(
           `DELETE FROM followers
                    WHERE followed_user_id =$1 AND followed_by_id=$2`,
-          [blockedBy, blockedUser]
+          [blockedUser, blockedBy]
         );
       }
       revalidatePath(`/profile`);
