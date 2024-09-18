@@ -7,6 +7,7 @@ import "./Users.css";
 import { fetchUser } from "@/app/actions/fetchUser";
 import { fetchRole } from "@/app/actions/fetchRole";
 import { deleteUser } from "@/app/actions/deleteUser";
+import SearchUserComponent from "./SearchBarComponent";
 
 export default async function Users() {
   try {
@@ -33,6 +34,7 @@ export default async function Users() {
 
     return (
       <>
+        <SearchUserComponent />
         <table>
           <thead>
             <tr className="trHead">
@@ -53,7 +55,7 @@ export default async function Users() {
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      gap: "0.25rem",
+                      gap: "0.75rem",
                     }}
                   >
                     <AvatarDisplayTable src={user.profile_image} />

@@ -3,7 +3,18 @@ import { currentUser } from "@clerk/nextjs/server";
 import UploadMediaClientWrapper from "./UploadMediaClientWrapper"; // Client-side wrapper for UploadMediaTwo
 import { redirect } from "next/navigation";
 import "./PostForm.css";
+import { SignInButton } from "@clerk/nextjs";
 export default async function PostForm() {
+  const curUser = await currentUser();
+  if (!curUser) {
+    return (
+      <>
+        <p style={{ color: "red" }}>
+          you need to <SignInButton /> first
+        </p>
+      </>
+    );
+  }
   const category_response = await db.query(`select * from categories`);
   const categories = category_response.rows;
 
