@@ -62,6 +62,7 @@ export default async function SingleProfilePage({ params }) {
     const canDeleteOrEdit =
       curRole.role_name === "manager" || // Manager can access all
       (curRole.role_name === "admin" && role.role_name === "normal_user") || // Admin can only manage Users
+      (curRole.role_name === "admin" && theUser.id === newUser.id) ||
       (curRole.role_name === "normal_user" && theUser.id === newUser.id); // Users can only manage themselves
 
     console.log(canDeleteOrEdit);
