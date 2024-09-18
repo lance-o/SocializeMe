@@ -1,9 +1,8 @@
 import { db } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
-import "./PostForm.css";
-import UploadMedia from "./UploadImage";
+import UploadMediaClientWrapper from "./UploadMediaClientWrapper"; // Client-side wrapper for UploadMediaTwo
 import { redirect } from "next/navigation";
-
+import "./PostForm.css";
 export default async function PostForm() {
   const category_response = await db.query(`select * from categories`);
   const categories = category_response.rows;
@@ -11,41 +10,37 @@ export default async function PostForm() {
   async function addNewPost(formData) {
     "use server";
 
-    //get data from form
+    // Get data from the form
     const content = formData.get("content");
-    const imageUrl = formData.get("imageUrl");
-    const videoUrl = formData.get("videoUrl");
+    const imageUrl = formData.get("imageUrl"); // Will be set by client-side upload
+    const videoUrl = formData.get("videoUrl"); // Will be set by client-side upload
     const category = formData.get("category");
-    const category_response = await db.query(
-      `select * from categories where category_name= $1`,
-      [category]
-    );
-    const category_id = category_response.rows[0].id;
     const title = formData.get("title");
 
-    //get the clerk id of the currently signed in user
+    // Get the clerk id of the currently signed-in user
     const currentuser = await currentUser();
     const userRecord = await db.query(
       `select id from users where clerk_user_id = $1`,
       [currentuser.id]
     );
-    const userId = userRecord.rows[0];
-    console.log(userId);
+    const userId = userRecord.rows[0].id;
 
-    // add post to database
+    // Add the post to the database
     await db.query(
       `insert into posts(user_id, category_id, title, content, creation_date, content_image_url, content_video_url, like_count) values($1, $2, $3, $4, $5, $6, $7, $8)`,
       [
-        userId?.id,
-        category_id,
+        userId,
+        category, // Assuming you get the correct category_id in form
         title,
         content,
         new Date(),
-        imageUrl,
-        videoUrl,
+        imageUrl, // Received from client-side upload
+        videoUrl, // Received from client-side upload
         0,
       ]
     );
+
+    // Redirect after the post is added
     redirect("/");
   }
 
@@ -58,7 +53,6 @@ export default async function PostForm() {
         </div>
         <div>
           <textarea
-            autofocus
             name="content"
             rows="10"
             cols="80"
@@ -67,24 +61,20 @@ export default async function PostForm() {
         </div>
         <div>
           <select id="category" name="category" defaultValue="">
-            <option style={{ color: "black" }} value="">
-              Select a category
-            </option>
-            {categories.map((category) => {
-              return (
-                <option style={{ color: "black" }} key={category.id}>
-                  {category.category_name}
-                </option>
-              );
-            })}
+            <option value="">Select a category</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.category_name}
+              </option>
+            ))}
           </select>
-          <label htmlFor="imageUrl">Image/Video</label>
-          <UploadMedia />
-          <input type="hidden" name="imageUrl" id="imageUrl" />
-          <input type="hidden" name="videoUrl" id="videoUrl" />
         </div>
         <div>
-          <button>Post</button>
+          {/* Client-Side UploadMedia Component */}
+          <UploadMediaClientWrapper />
+        </div>
+        <div>
+          <button type="submit">Post</button>
         </div>
       </form>
     </div>
