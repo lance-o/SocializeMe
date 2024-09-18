@@ -34,28 +34,14 @@
 }
 
 .badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 2%;
-  box-shadow: 0 0 5px black, 0 2px white;
-  background-color: #1660d1;
-  animation: backColor 5s infinite alternate;
   width: 110%;
   padding: 1rem;
   border-radius: 5px 28px 2px;
   font-weight: 500;
-  transition: color 5s, background-color 5s; /* Add this line */
-}
-
-@keyframes backColor {
-  0% {
-    color: #1660d1;
-    text-shadow: 0 0 5px #1660d1;
-    background-color: #1660d1;
-  }
-  100% {
-    background-color: #ffffff;
-    color: black;
-    text-shadow: 0 0 5px rgb(255, 255, 255);
-  }
 }
 
 .info {
