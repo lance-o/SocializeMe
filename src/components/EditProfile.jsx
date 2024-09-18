@@ -4,8 +4,9 @@ import "./EditProfile.css";
 import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import UploadMedia from "./UploadImage";
+
 import editProfileSubmission from "@/app/actions/EditProfileForm";
+import UploadMediaTwo from "./UploadImageTwo";
 
 export default function EditProfile(props) {
   const [formData, setFormData] = useState({
@@ -16,6 +17,8 @@ export default function EditProfile(props) {
     imageUrl: "",
   });
 
+  const [isUploading, setIsUploading] = useState(false); // Track upload status
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
@@ -24,11 +27,30 @@ export default function EditProfile(props) {
     }));
   };
 
+  const handleUploadComplete = (imageUrl) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      imageUrl: imageUrl,
+    }));
+    setIsUploading(false); // Upload is complete
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (isUploading) {
+      alert("Please wait for the image to finish uploading.");
+      return;
+    }
     const form = event.target;
     const formData = new FormData(form);
     await editProfileSubmission(formData);
+    setFormData({
+      email: "",
+      firstname: "",
+      lastname: "",
+      bio: "",
+      imageUrl: "",
+    });
   };
 
   return (
@@ -40,7 +62,7 @@ export default function EditProfile(props) {
         <Dialog.Overlay className="DialogOverlay" />
         <Dialog.Content className="DialogContent">
           <Dialog.Title className="DialogTitle">Edit profile</Dialog.Title>
-          <Dialog.Description className="">
+          <Dialog.Description>
             Update your profile information below.
           </Dialog.Description>
           <form method="post" action="#" onSubmit={handleSubmit}>
@@ -52,46 +74,32 @@ export default function EditProfile(props) {
                 className="Input"
                 type="email"
                 name="email"
-                id="email"
-                placeholder="Enter your Email"
-                title="Enter your Email"
                 value={formData.email}
                 onChange={handleChange}
-                required
               />
             </fieldset>
             <fieldset className="Fieldset">
-              <label className="Label" htmlFor="first_name">
+              <label className="Label" htmlFor="firstname">
                 First Name
               </label>
               <input
                 className="Input"
                 type="text"
                 name="firstname"
-                id="first_name"
-                placeholder="First Name"
-                title="Enter your name"
-                minLength={3}
                 value={formData.firstname}
                 onChange={handleChange}
-                required
               />
             </fieldset>
             <fieldset className="Fieldset">
-              <label className="Label" htmlFor="last_name">
+              <label className="Label" htmlFor="lastname">
                 Last Name
               </label>
               <input
                 className="Input"
                 type="text"
                 name="lastname"
-                id="last_name"
-                placeholder="Last Name"
-                title="Enter your last name"
-                minLength={5}
                 value={formData.lastname}
                 onChange={handleChange}
-                required
               />
             </fieldset>
             <fieldset className="Fieldset">
@@ -102,27 +110,22 @@ export default function EditProfile(props) {
                 className="Input"
                 type="text"
                 name="bio"
-                id="bio"
-                placeholder="Enter your bio"
-                title="Enter your bio"
                 value={formData.bio}
                 onChange={handleChange}
-                required
               />
             </fieldset>
             <fieldset className="Fieldset">
               <label htmlFor="imageUrl">Image</label>
-              <UploadMedia />
-              <input
-                type="hidden"
-                name="imageUrl"
-                id="imageUrl"
-                value={formData.imageUrl}
-              />
-              <input type="hidden" name="id" id="id" value={props.userId} />
+              <UploadMediaTwo onUploadComplete={handleUploadComplete} />
+              <input type="hidden" name="imageUrl" value={formData.imageUrl} />
+              <input type="hidden" name="id" value={props.userId} />
             </fieldset>
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <button type="submit" className="Button green">
+              <button
+                type="submit"
+                className="Button green"
+                disabled={isUploading}
+              >
                 Save
               </button>
             </div>
