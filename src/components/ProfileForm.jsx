@@ -2,6 +2,7 @@
 import UploadMedia from "./UploadImage";
 import "./ProfileForm.css";
 import { useState } from "react";
+import UploadMediaTwo from "./UploadImageTwo";
 
 export default function ProfileForm({ submission }) {
   const [formData, setFormData] = useState({
@@ -11,7 +12,7 @@ export default function ProfileForm({ submission }) {
     bio: "",
     imageUrl: "",
   });
-
+  const [isUploading, setIsUploading] = useState(false);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
@@ -36,7 +37,13 @@ export default function ProfileForm({ submission }) {
       imageUrl: "",
     });
   };
-
+  const handleUploadComplete = (imageUrl) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      imageUrl: imageUrl,
+    }));
+    setIsUploading(false); // Upload is complete
+  };
   return (
     <div
       style={{
@@ -102,7 +109,7 @@ export default function ProfileForm({ submission }) {
         </div>
         <div>
           <label htmlFor="imageUrl">Image</label>
-          <UploadMedia />
+          <UploadMediaTwo onUploadComplete={handleUploadComplete} />
           <input
             type="hidden"
             name="imageUrl"
