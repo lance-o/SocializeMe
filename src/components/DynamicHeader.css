@@ -14,14 +14,6 @@
   position: absolute;
 }
 
-h1 {
-  display: "flex";
-  flex-direction: row;
-  font-size: large;
-  color: "#fff";
-  align-items: "center";
-}
-
 .headerOverlay {
   opacity: 0.12;
 }
@@ -35,15 +27,19 @@ a {
   display: flex;
   flex-direction: column;
   align-items: end;
+  gap: 0;
 }
 
 .ClerkUserArea {
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 5px;
-  padding: 5px;
+  padding: 0;
+  margin: 0;
+  height: 15px;
 }
 
 .rightside_child {
+  margin-top: 0;
   transform: translateY(30px);
   display: flex;
   flex-direction: row;
@@ -51,13 +47,24 @@ a {
 }
 
 .header select {
-  /* border: 1px solid #ffffff; */
-  box-shadow: 0 0 2px rgb(0, 0, 0);
-  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 12px rgb(0, 0, 0), 0 3px 0 white;
+  border-radius: 15px;
   background: none;
   background-color: #ffffff;
   height: 40px;
   transition: selectcolor 1s ease-in-out forward;
+  color: black;
+  font-weight: 500;
+}
+.header option {
+  text-align: center;
+  color: rgb(0, 0, 0);
+  text-shadow: 0 0 15px rgb(0, 0, 0);
+  font-weight: 500;
+  background-color: #ededfb;
+  box-shadow: 0 0 15px black;
+  cursor: pointer;
 }
 
 .header select:hover {
@@ -110,12 +117,12 @@ a {
 .SelectItem4Hide {
   display: block;
 }
-
-@media (max-width: 560px) {
-  .NavItems {
-    display: none;
-  }
-}
+/* .headerSelect {
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 0 8px black, 0 2px 0 wheat;
+  color: black;
+} */
 
 @media (min-width: 560px) {
   .NavItem1Hide {

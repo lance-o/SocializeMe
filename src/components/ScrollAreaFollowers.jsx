@@ -37,7 +37,7 @@ export default function ScrollAreaFollowers(props) {
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      gap: "0.25rem",
+                      gap: "0.75rem",
                     }}
                   >
                     <AvatarDisplayTable src={follower.profile_image} />
