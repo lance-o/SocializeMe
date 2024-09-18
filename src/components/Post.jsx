@@ -17,6 +17,7 @@ import { redirect } from "next/navigation";
 import checkMeBlocked from "@/app/actions/checkMeBlocked";
 import { blockUser, blockUserDropdown } from "@/app/actions/blockUser";
 import unBlockUser, { unBlockUserDropdown } from "@/app/actions/unBlockUser";
+import { compareRole } from "@/app/actions/compareRole";
 
 export default async function Post(params) {
   const id = params.id;
@@ -86,8 +87,9 @@ export default async function Post(params) {
           userId={params.userId} 
           posterId={post.user_id} 
           postEntirety={post}
+          isSuperior={await compareRole(params.userId,post.user_id)}
           isFollowed={await followChecking(params.userId, post.user_id)} 
-          isBlocked={await checkMeBlocked(post.user_id,params.userId)}
+          isBlocked={await checkMeBlocked(params.userId, post.user_id)}
           doFollowAction={doFollowAction}
           doBlockAction={doBlockAction}
           doEditFunction={doEditFunction}

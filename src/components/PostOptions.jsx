@@ -18,7 +18,7 @@ export default function PostOptions(params){
     let isOwnPost = params.posterId == params.userId;
     let userFollows = params.isFollowed;
     let userBlocked = params.isBlocked;
-    let isModerator = false;
+    let isSuperior = params.isSuperior;
 
     function blockAction(){
         params.doBlockAction(userBlocked, userFollows);
@@ -38,27 +38,48 @@ export default function PostOptions(params){
             <DropdownMenu.Portal>
                 <DropdownMenu.Content className="DropdownMenuContent">
                 {
-                isOwnPost
-
-                ?   <div>
-                        <EditPost postEntirety={params.postEntirety} doEditFunction={params.doEditFunction}></EditPost>
-                        <DeletePost postEntirety={params.postEntirety} doDeleteFunction={params.doDeleteFunction}></DeletePost>
-                    </div>
-
-                :   
-                    <div>
-                        <DropdownMenu.Item className="DropdownMenuItem" onSelect={followAction}>
-                            {userFollows 
-                            ? <p>Unfollow</p>
-                            : <p>Follow</p>}
-                        </DropdownMenu.Item>
-                        <DropdownMenu.Item className="DropdownMenuItem" onSelect={blockAction}>
-                            {userBlocked 
-                            ? <p>Unblock</p>
-                            : <p>Block</p>}
-                        </DropdownMenu.Item>
-                    </div>
+                isSuperior
+                ?<>
+                    <EditPost postEntirety={params.postEntirety} doEditFunction={params.doEditFunction}></EditPost>
+                    <DeletePost postEntirety={params.postEntirety} doDeleteFunction={params.doDeleteFunction}></DeletePost>
+                    <DropdownMenu.Item className="DropdownMenuItem" onSelect={followAction}>
+                        {userFollows 
+                        ? <p>Unfollow</p>
+                        : <p>Follow</p>}
+                    </DropdownMenu.Item>
+                    <DropdownMenu.Item className="DropdownMenuItem" onSelect={blockAction}>
+                        {userBlocked 
+                        ? <p>Unblock</p>
+                        : <p>Block</p>}
+                    </DropdownMenu.Item>
+                </>
+                :<>{
+                
+                    isOwnPost
+    
+                    ?   <div>
+                            <EditPost postEntirety={params.postEntirety} doEditFunction={params.doEditFunction}></EditPost>
+                            <DeletePost postEntirety={params.postEntirety} doDeleteFunction={params.doDeleteFunction}></DeletePost>
+                        </div>
+    
+                    :   
+                        <div>
+                            <DropdownMenu.Item className="DropdownMenuItem" onSelect={followAction}>
+                                {userFollows 
+                                ? <p>Unfollow</p>
+                                : <p>Follow</p>}
+                            </DropdownMenu.Item>
+                            <DropdownMenu.Item className="DropdownMenuItem" onSelect={blockAction}>
+                                {userBlocked 
+                                ? <p>Unblock</p>
+                                : <p>Block</p>}
+                            </DropdownMenu.Item>
+                        </div>
+                    }
+                    </>
                 }
+                
+
                 
 
                 </DropdownMenu.Content>
