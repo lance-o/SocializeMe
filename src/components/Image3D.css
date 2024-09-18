@@ -1,0 +1,45 @@
+.img-container {
+  width: 100px;
+  height: 100px;
+  perspective: 1000px; /* The higher the value, the less dramatic the 3D effect */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.img-container:hover .img {
+  box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.5); /* More pronounced shadow on hover */
+}
+a.img-container {
+  width: 100px;
+  height: 100px;
+  perspective: 1000px; /* The higher the value, the less dramatic the 3D effect */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out,
+    border 0.3s ease; /* Added border transition */
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  border: 3px solid transparent; /* Initial border */
+}
+
+.img-container:hover .img {
+  box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.5); /* More pronounced shadow on hover */
+  border: 6px solid rgba(255, 255, 0, 0.7); /* Thicker border on hover */
+}

@@ -18,6 +18,7 @@ import {
 } from "@/app/actions/getFollowerCount";
 import { getFollowingCountTruncated } from "@/app/actions/getFollowingCount";
 import EditProfile from "@/components/EditProfile";
+import Image3D from "@/components/Image3D";
 
 export default async function ProfilePage() {
   {
@@ -25,9 +26,9 @@ export default async function ProfilePage() {
     if (!curUser) {
       return (
         <>
-          <p style={{ color: "red" }}>you need to Login first</p>
-          <SignInButton />
-          <SignOutButton />
+          <p style={{ color: "red" }}>
+            you need to <SignInButton /> first
+          </p>
         </>
       );
     }
@@ -51,17 +52,15 @@ export default async function ProfilePage() {
     //fetching followers
     const followersList = await fetchFollowers(theUser?.id);
     //badge managing
-    let badgeString = "";
+    let src = "";
     const followerCount = await getFollowerCount(theUser.id);
     {
       if (followerCount == 1) {
-        badgeString = "You Just Got Your First Follower";
-      } else if (followerCount == 100) {
-        badgeString = "Nice Job, Now You Reach 100 Followers";
+        src = "/assets/badge1.png";
+      } else if (followerCount == 50) {
+        src = "/assets/badge2.png";
       } else if (followerCount == 1000) {
-        badgeString = "Nice Job, Now You Reach 1000 Followers";
-      } else if (followerCount == 10000) {
-        badgeString = "Nice Job, Now You Reach 10K Followers";
+        src = "/assets/badge3.png";
       }
     }
     return (
@@ -119,7 +118,7 @@ export default async function ProfilePage() {
               <Link href="users">Users</Link>
               <Link href="/favorites">Favorite</Link>
               <div className="badge">
-                <p>{badgeString == "" ? "You have No Badge" : badgeString}</p>
+                <Image3D src={src} />
               </div>
             </div>
           </div>
