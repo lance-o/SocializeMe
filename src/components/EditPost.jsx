@@ -5,11 +5,12 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import "./PostOptions.css";
 import "./EditPost.css";
 import UploadMedia from "./UploadImage";
+import UploadMediaClientWrapper from "./UploadMediaClientWrapper";
 
 export default function EditPost(params) {
   return (
     <div style={{ display: "flex", gap: 50 }}>
-      <DropdownWithDialogItemsSolution1 postContent={params.postContent} doEditFunction={params.doEditFunction}/>
+      <DropdownWithDialogItemsSolution1 postEntirety={params.postEntirety} doEditFunction={params.doEditFunction}/>
     </div>
   );
 }
@@ -55,21 +56,21 @@ function DropdownWithDialogItemsSolution1(params) {
                 onChange={handleChange}
                 title="Edit your post"
                 >
-                {params.postContent}
+                {params.postEntirety.content}
                 </textarea>
               <input
                 type="hidden"
                 name="imageUrl"
                 id="imageUrl"
-                value={formData.imageUrl}
+                value={params.postEntirety.content_image_url}
               />
               <input
                 type="hidden"
                 name="videoUrl"
                 id="videoUrl"
-                value={formData.videoUrl}
+                value={params.postEntirety.content_video_url}
               />
-              <UploadMedia />
+              <UploadMediaClientWrapper/>
             </fieldset>
             <button type="submit" className="Button green" >Save changes</button>
           </form>
@@ -85,6 +86,8 @@ function DropdownWithDialogItemsSolution1(params) {
   );
 }
 
+// eslint-disable-next-line react/display-name
+// This is copied from online...
 const DialogItem = React.forwardRef((props, forwardedRef) => {
   const { triggerChildren, children, onSelect, onOpenChange, ...itemProps } = props;
   return (

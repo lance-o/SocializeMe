@@ -47,7 +47,7 @@ export default function PostOptions(params){
                 isOwnPost
 
                 ?   <div>
-                        <EditPost postContent={params.postContent} doEditFunction={params.doEditFunction}></EditPost>
+                        <EditPost postEntirety={params.postEntirety} doEditFunction={params.doEditFunction}></EditPost>
                     </div>
 
                 :   <DropdownMenu.Item className="DropdownMenuItem" onSelect={followAction}>

@@ -40,6 +40,7 @@ export default async function Post(params) {
     console.log("Tried to block/unblock");
   }
 
+  //Passed down to the dropdown and edit post component, to recieve updates to post.
   async function doEditFunction(formData){
     "use server"
     const content = formData.get("postContent");
@@ -57,13 +58,14 @@ export default async function Post(params) {
   const userName = post.first_name
     ? post.first_name
     : "Anonymous";
+
   return (
     <div className="postBody">
       <div className="absolute right-2">
         <PostOptions 
           userId={params.userId} 
           posterId={post.user_id} 
-          postContent={post.content}
+          postEntirety={post}
           isFollowed={await followChecking(params.userId, post.user_id)} 
           doFollowAction={doFollowAction}
           doBlockAction={doBlockAction}
