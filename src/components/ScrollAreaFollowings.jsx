@@ -5,7 +5,7 @@ import "./ScrollAreaFollowings.css";
 
 import AvatarDisplayTable from "./AvatarForTable";
 import Link from "next/link";
-import { FollowControl } from "./FollowControlMenu";
+import { FollowingControl } from "./FollowingControlMenu";
 
 export default function ScrollAreaFollowings(props) {
   const followings = props.followings;
@@ -71,7 +71,7 @@ export default function ScrollAreaFollowings(props) {
                         >
                           Remove
                         </button> */}
-                        <FollowControl
+                        <FollowingControl
                           unFollow={props.unFollow}
                           userId={props.userId}
                           otherUser={following.id}
