@@ -23,6 +23,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import checkBlock from "@/app/actions/blockCheck";
 import unBlockUser from "@/app/actions/unBlockUser";
+import checkMeBlocked from "@/app/actions/checkMeBlocked";
 
 export default async function SingleProfilePage({ params }) {
   const id = params.id;
@@ -127,6 +128,9 @@ export default async function SingleProfilePage({ params }) {
       "use server";
       await unBlockUser(theUser.id, newUser.id);
     }
+
+    const amIblocked = await checkMeBlocked(newUser.id, theUser.id);
+
     return (
       <div className="profilePage">
         <div>
@@ -181,11 +185,13 @@ export default async function SingleProfilePage({ params }) {
               </div>
               <div className="buttonOrder">
                 <SignedIn>
-                  <form action={isFollowed ? handleUnfollow : handleFollow}>
-                    <button type="submit">
-                      {isFollowed ? "Unfollow" : "Follow"}
-                    </button>
-                  </form>
+                  {!amIblocked && (
+                    <form action={isFollowed ? handleUnfollow : handleFollow}>
+                      <button type="submit">
+                        {isFollowed ? "Unfollow" : "Follow"}
+                      </button>
+                    </form>
+                  )}
                 </SignedIn>
                 <div className="badge">
                   <p>badge Display</p>
