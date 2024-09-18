@@ -3,14 +3,14 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import "./PostOptions.css";
-import "./EditPost.css";
+import "./DeletePost.css";
 import UploadMedia from "./UploadImage";
 import UploadMediaClientWrapper from "./UploadMediaClientWrapper";
 
-export default function EditPost(params) {
+export default function DeletePost(params) {
   return (
     <div style={{ display: "flex", gap: 50 }}>
-      <DropdownWithDialogItemsSolution1 postEntirety={params.postEntirety} doEditFunction={params.doEditFunction}/>
+      <DropdownWithDialogItemsSolution1 postEntirety={params.postEntirety} doDeleteFunction={params.doDeleteFunction}/>
     </div>
   );
 }
@@ -32,48 +32,25 @@ function DropdownWithDialogItemsSolution1(params) {
     
       const handleSubmit = async (event) => {
         event.preventDefault();
-        const form = event.target;
-        const formData = new FormData(form);
-        await params.doEditFunction(formData);
+        await params.doDeleteFunction();
       };
 
   return (
         <DropdownMenu.Group  className="DropdownMenuContent">
-          <DialogItem triggerChildren="Edit">
-            <Dialog.Title className="DialogTitle">Edit Post</Dialog.Title>
+          <DialogItem triggerChildren="Delete Post">
+            <Dialog.Title className="DialogTitle">Delete</Dialog.Title>
             <Dialog.Description className="DialogDescription">
-              Edit this post below.
+              Are you sure you want to delete this post?
             </Dialog.Description>
-            <form method="post" action="#" onSubmit={handleSubmit}>
-            <fieldset className="Fieldset">
-                <label className="Label" htmlFor="content">
-                </label>
-                <textarea
-                className="content"
-                name="postContent"
-                id="content"
-                placeholder="Edit your post"
-                onChange={handleChange}
-                title="Edit your post"
-                >
-                {params.postEntirety.content}
-                </textarea>
-              <input
-                type="hidden"
-                name="imageUrl"
-                id="imageUrl"
-                value={params.postEntirety.content_image_url}
-              />
-              <input
-                type="hidden"
-                name="videoUrl"
-                id="videoUrl"
-                value={params.postEntirety.content_video_url}
-              />
-              <UploadMediaClientWrapper/>
-            </fieldset>
-            <button type="submit" className="Button green" >Save changes</button>
-          </form>
+                <form method="post" className="flex gap-4 justify-between" action="#" onSubmit={handleSubmit}>
+                
+                <button type="submit" className="Button red">Delete post</button>
+                <Dialog.Close asChild>
+                <button type="button" className="Button violet">
+                Close
+                </button>
+                </Dialog.Close>
+            </form>
           </DialogItem>
         </DropdownMenu.Group>
   );

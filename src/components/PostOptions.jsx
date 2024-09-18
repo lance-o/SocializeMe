@@ -12,26 +12,20 @@ import {
   import "./PostOptions.css";
 import EditProfile from './EditProfile';
 import EditPost from './EditPost';
+import DeletePost from './DeletePost';
 
 export default function PostOptions(params){
     let isOwnPost = params.posterId == params.userId;
     let userFollows = params.isFollowed;
+    let userBlocked = params.isBlocked;
     let isModerator = false;
 
-    function hi(){
-        console.log(params.doFollowAction());
-    }
-
-    function editFunction(){
-        console.log(params.doEditFunction());
-    }
-
     function blockAction(){
-        console.log(params.doBlockAction());
+        params.doBlockAction(userBlocked, userFollows);
     }
 
     function followAction(){
-        console.log(params.doFollowAction());
+        params.doFollowAction(isOwnPost, userFollows);
     }
 
     return(
@@ -48,11 +42,22 @@ export default function PostOptions(params){
 
                 ?   <div>
                         <EditPost postEntirety={params.postEntirety} doEditFunction={params.doEditFunction}></EditPost>
+                        <DeletePost postEntirety={params.postEntirety} doDeleteFunction={params.doDeleteFunction}></DeletePost>
                     </div>
 
-                :   <DropdownMenu.Item className="DropdownMenuItem" onSelect={followAction}>
-                        <div>Follow/Unfollow -temporary-</div>
-                    </DropdownMenu.Item>
+                :   
+                    <div>
+                        <DropdownMenu.Item className="DropdownMenuItem" onSelect={followAction}>
+                            {userFollows 
+                            ? <p>Unfollow</p>
+                            : <p>Follow</p>}
+                        </DropdownMenu.Item>
+                        <DropdownMenu.Item className="DropdownMenuItem" onSelect={blockAction}>
+                            {userBlocked 
+                            ? <p>Unblock</p>
+                            : <p>Block</p>}
+                        </DropdownMenu.Item>
+                    </div>
                 }
                 
 

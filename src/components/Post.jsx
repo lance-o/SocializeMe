@@ -8,9 +8,15 @@ import "./Post.css";
 import { userAgentFromString } from "next/server";
 import DropdownMenuDemo from "./PostOptions";
 import PostOptions from "./PostOptions";
-import { removeFromFollowers } from "@/app/actions/removeFromFollowers";
+import { removeFromFollowings } from "@/app/actions/removeFromFollowings";
 import { followChecking } from "@/app/actions/followChecking";
 import { editPost } from "@/app/actions/editPost";
+import { deletePost } from "@/app/actions/deletePost";
+import { handleFollow } from "@/app/actions/handleFollow";
+import { redirect } from "next/navigation";
+import checkMeBlocked from "@/app/actions/checkMeBlocked";
+import { blockUser, blockUserDropdown } from "@/app/actions/blockUser";
+import unBlockUser, { unBlockUserDropdown } from "@/app/actions/unBlockUser";
 
 export default async function Post(params) {
   const id = params.id;
@@ -30,14 +36,28 @@ export default async function Post(params) {
   );
   const post = result.rows[0];
   
-  async function doFollowAction(){
+  async function doFollowAction(isOwnPost, isFollowing){
     "use server"
-    console.log("Tried to follow/unfollow");
+    handleFollow(params.userId, post.user_id, isOwnPost, isFollowing);
+    redirect(`/`);
   }
 
-  async function doBlockAction(){
+  async function doBlockAction(userBlocked, userFollows){
     "use server"
-    console.log("Tried to block/unblock");
+    console.log("Hi from doblockaction", userBlocked);
+    if(!userBlocked){
+      blockUserDropdown(post.user_id, params.userId);
+      console.log("Should have blocked them")
+    }
+    else{
+      unBlockUserDropdown(post.user_id, params.userId);
+    }
+    redirect("/");
+  }
+
+  async function doDeleteFunction(){
+    "use server"
+    await deletePost(id);
   }
 
   //Passed down to the dropdown and edit post component, to recieve updates to post.
@@ -67,9 +87,11 @@ export default async function Post(params) {
           posterId={post.user_id} 
           postEntirety={post}
           isFollowed={await followChecking(params.userId, post.user_id)} 
+          isBlocked={await checkMeBlocked(post.user_id,params.userId)}
           doFollowAction={doFollowAction}
           doBlockAction={doBlockAction}
-          doEditFunction={doEditFunction}>
+          doEditFunction={doEditFunction}
+          doDeleteFunction={doDeleteFunction}>
         </PostOptions>
       </div>
       <div className="flex flex-row items-start gap-2">
