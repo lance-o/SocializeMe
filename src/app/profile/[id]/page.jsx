@@ -16,7 +16,10 @@ import EditProfile from "@/components/EditProfile";
 import { fetchFollowers } from "@/app/actions/fetchFollowers";
 import { fetchFollowings } from "@/app/actions/fetchFollowins";
 import { followChecking } from "@/app/actions/followChecking";
-import { getFollowerCountTruncated } from "@/app/actions/getFollowerCount";
+import {
+  getFollowerCount,
+  getFollowerCountTruncated,
+} from "@/app/actions/getFollowerCount";
 import { getFollowingCountTruncated } from "@/app/actions/getFollowingCount";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
@@ -107,6 +110,10 @@ export default async function SingleProfilePage({ params }) {
         `INSERT INTO followers (followed_by_id, followed_user_id) VALUES ($1, $2)`,
         [theUser.id, id]
       );
+      await db.query(
+        `UPDATE users SET follower_count= follower_count +1 WHERE id=$1`,
+        [newUser.id]
+      );
       revalidatePath(`/profile/${id}`);
       redirect(`/profile/${id}`);
     }
@@ -118,6 +125,18 @@ export default async function SingleProfilePage({ params }) {
         `DELETE FROM followers WHERE followed_by_id = $1 AND followed_user_id = $2`,
         [theUser.id, newUser.id]
       );
+      await db.query(
+        `
+        UPDATE users 
+        SET follower_count = CASE 
+            WHEN follower_count - 1 < 0 THEN 0 
+            ELSE follower_count - 1 
+        END
+      WHERE id =$1
+    `,
+        [newUser.id]
+      );
+
       revalidatePath(`/profile/${id}`);
       redirect(`/profile/${id}`);
     }
@@ -129,7 +148,21 @@ export default async function SingleProfilePage({ params }) {
       await unBlockUser(theUser.id, newUser.id);
     }
 
-    const amIblocked = await checkMeBlocked(newUser.id, theUser.id);
+    const amIblocked = await checkMeBlocked(newUser.id, theUser.id); //checking if the current user is blocked by others
+    //badge managing
+    let badgeString = "";
+    const followerCount = await getFollowerCount(newUser.id);
+    {
+      if (followerCount == 1) {
+        badgeString = "You Just Got Your First Follower";
+      } else if (followerCount == 100) {
+        badgeString = "Nice Job, Now You Reach 100 Followers";
+      } else if (followerCount == 1000) {
+        badgeString = "Nice Job, Now You Reach 1000 Followers";
+      } else if (followerCount == 10000) {
+        badgeString = "Nice Job, Now You Reach 10K Followers";
+      }
+    }
 
     return (
       <div className="profilePage">
@@ -194,7 +227,7 @@ export default async function SingleProfilePage({ params }) {
                   )}
                 </SignedIn>
                 <div className="badge">
-                  <p>badge Display</p>
+                  <p>{badgeString == "" ? "You have No Badge" : badgeString}</p>
                 </div>
               </div>
             </div>

@@ -1,26 +1,22 @@
 import ProfileForm from "@/components/ProfileForm";
-
 import { currentUser } from "@clerk/nextjs/server";
-
 import { profileFormSubmit } from "../actions/profile";
 import { SignInButton, SignOutButton } from "@clerk/nextjs";
 import "./profile.css";
 import { fetchUser } from "../actions/fetchUser";
 import Link from "next/link";
 import { fetchRole } from "../actions/fetchRole";
-
 import AvatarDisplay from "@/components/Avatar";
-
 import AlertDialogDemo from "@/components/AlertDialog";
-
 import FollowingsAlertDialog from "@/components/FollowingsAlertDialog";
 import { fetchFollowings } from "../actions/fetchFollowins";
 import { fetchFollowers } from "../actions/fetchFollowers";
 import FollowersAlertDialog from "@/components/FollowerAlertDialog";
-
-import { getFollowerCountTruncated } from "@/app/actions/getFollowerCount";
+import {
+  getFollowerCount,
+  getFollowerCountTruncated,
+} from "@/app/actions/getFollowerCount";
 import { getFollowingCountTruncated } from "@/app/actions/getFollowingCount";
-
 import EditProfile from "@/components/EditProfile";
 
 export default async function ProfilePage() {
@@ -54,7 +50,20 @@ export default async function ProfilePage() {
     console.log(followingsList);
     //fetching followers
     const followersList = await fetchFollowers(theUser?.id);
-
+    //badge managing
+    let badgeString = "";
+    const followerCount = await getFollowerCount(theUser.id);
+    {
+      if (followerCount == 1) {
+        badgeString = "You Just Got Your First Follower";
+      } else if (followerCount == 100) {
+        badgeString = "Nice Job, Now You Reach 100 Followers";
+      } else if (followerCount == 1000) {
+        badgeString = "Nice Job, Now You Reach 1000 Followers";
+      } else if (followerCount == 10000) {
+        badgeString = "Nice Job, Now You Reach 10K Followers";
+      }
+    }
     return (
       <div className="profilePage">
         <div>
@@ -110,7 +119,7 @@ export default async function ProfilePage() {
               <Link href="users">Users</Link>
               <Link href="/favorites">Favorite</Link>
               <div className="badge">
-                <p>badge Display</p>
+                <p>{badgeString == "" ? "You have No Badge" : badgeString}</p>
               </div>
             </div>
           </div>
