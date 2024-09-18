@@ -10,8 +10,10 @@ import DropdownMenuDemo from "./PostOptions";
 import PostOptions from "./PostOptions";
 import { removeFromFollowers } from "@/app/actions/removeFromFollowers";
 import { followChecking } from "@/app/actions/followChecking";
+import { editPost } from "@/app/actions/editPost";
 
 export default async function Post(params) {
+  const id = params.id;
   const result = await db.query(
     `
     SELECT
@@ -38,9 +40,12 @@ export default async function Post(params) {
     console.log("Tried to block/unblock");
   }
 
-  async function doEditFunction(content){
+  async function doEditFunction(formData){
     "use server"
-    console.log(content);
+    const content = formData.get("postContent");
+    const imageUrl = formData.get("imageUrl");
+    const videoUrl = formData.get("videoUrl");
+    await editPost(id, content, imageUrl, videoUrl);
   }
 
   let img_url =

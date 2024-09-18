@@ -1,9 +1,10 @@
-import * as React from "react";
+import React, { useState } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import "./PostOptions.css";
 import "./EditPost.css";
+import UploadMedia from "./UploadImage";
 
 export default function EditPost(params) {
   return (
@@ -14,6 +15,27 @@ export default function EditPost(params) {
 }
 
 function DropdownWithDialogItemsSolution1(params) {
+    const [formData, setFormData] = useState({
+        content: "",
+        imageUrl:"",
+        videoUrl:"",
+      });
+    
+      const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+      };
+    
+      const handleSubmit = async (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        await params.doEditFunction(formData);
+      };
+
   return (
         <DropdownMenu.Group  className="DropdownMenuContent">
           <DialogItem triggerChildren="Edit">
@@ -21,21 +43,36 @@ function DropdownWithDialogItemsSolution1(params) {
             <Dialog.Description className="DialogDescription">
               Edit this post below.
             </Dialog.Description>
+            <form method="post" action="#" onSubmit={handleSubmit}>
             <fieldset className="Fieldset">
-            <label className="Label" htmlFor="content">
-              Post
-            </label>
-            <textarea
-              className="content"
-              name="post"
-              id="content"
-              placeholder="Edit your post"
-              title="Edit your post"
-            >
-            {params.postContent}
-            </textarea>
-          </fieldset>
-          <button className="Button green" onClick={()=>{params.doEditFunction("hi")}}>Save changes</button>
+                <label className="Label" htmlFor="content">
+                </label>
+                <textarea
+                className="content"
+                name="postContent"
+                id="content"
+                placeholder="Edit your post"
+                onChange={handleChange}
+                title="Edit your post"
+                >
+                {params.postContent}
+                </textarea>
+              <input
+                type="hidden"
+                name="imageUrl"
+                id="imageUrl"
+                value={formData.imageUrl}
+              />
+              <input
+                type="hidden"
+                name="videoUrl"
+                id="videoUrl"
+                value={formData.videoUrl}
+              />
+              <UploadMedia />
+            </fieldset>
+            <button type="submit" className="Button green" >Save changes</button>
+          </form>
           </DialogItem>
 
           <DialogItem triggerChildren="Delete">

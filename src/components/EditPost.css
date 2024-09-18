@@ -12,8 +12,11 @@ input {
 
 .content{
   resize: none;
-  width:80vw;
+  width:80%;
   height:200px;
+  border: 1px solid black;
+  border-radius: 6px;
+  padding:3px;
 }
 
 .DialogOverlay {
@@ -111,6 +114,7 @@ input {
 
 .Fieldset {
   display: flex;
+  flex-direction: column;
   gap: 20px;
   align-items: center;
   margin-bottom: 15px;
