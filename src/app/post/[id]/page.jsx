@@ -5,7 +5,18 @@ import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
 import CommentForm from "@/components/CommentForm";
 import Comment from "@/components/Comment";
-
+export async function generateMetadata({ params }) {
+  const id = parseInt(params.id, 10);
+  const postRes = await db.query(`SELECT * FROM posts where posts.id = $1`, [
+    id,
+  ]);
+  const post = postRes.rows[0];
+  console.log("param is ", params);
+  return {
+    title: `Socialize Me App - ${post.title}`,
+    description: `Connecting Software Development Professionals Through Socialize Me!`,
+  };
+}
 export default async function PostPage({ params }) {
   const id = params.id;
   const result = await db.query(` SELECT * FROM posts where posts.id = $1`, [
@@ -19,11 +30,13 @@ export default async function PostPage({ params }) {
     return postFound;
   }
 
-
   let resultComments;
   let comments;
-  if(isPostFound(post!=null)){
-    const resultComments = await db.query(`SELECT * FROM comments WHERE post_id = $1 ORDER BY id DESC`,[id,]);
+  if (isPostFound(post != null)) {
+    const resultComments = await db.query(
+      `SELECT * FROM comments WHERE post_id = $1 ORDER BY id DESC`,
+      [id]
+    );
     comments = resultComments.rows;
   }
 
@@ -34,7 +47,7 @@ export default async function PostPage({ params }) {
 
   return (
     <div>
-      {isPostFound(post!=null) ?
+      {isPostFound(post != null) ? (
         <div className="flex flex-col items-center">
           <div className="">
             <Post id={id} userId={userId}></Post>
@@ -54,10 +67,9 @@ export default async function PostPage({ params }) {
             </div>
           </div>
         </div>
-        
-       : 
+      ) : (
         <p>This post does not exist, or has been deleted.</p>
-      }
+      )}
     </div>
   );
 }

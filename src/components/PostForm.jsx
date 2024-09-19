@@ -3,7 +3,18 @@ import { currentUser } from "@clerk/nextjs/server";
 import UploadMediaClientWrapper from "./UploadMediaClientWrapper"; // Client-side wrapper for UploadMediaTwo
 import { redirect } from "next/navigation";
 import "./PostForm.css";
+import { SignInButton } from "@clerk/nextjs";
 export default async function PostForm() {
+  const curUser = await currentUser();
+  if (!curUser) {
+    return (
+      <>
+        <p style={{ color: "red" }}>
+          you need to <SignInButton /> first
+        </p>
+      </>
+    );
+  }
   const category_response = await db.query(`select * from categories`);
   const categories = category_response.rows;
 
@@ -12,8 +23,8 @@ export default async function PostForm() {
 
     // Get data from the form
     const content = formData.get("content");
-    const imageUrl = formData.get("imageUrl"); // Will be set by client-side upload
-    const videoUrl = formData.get("videoUrl"); // Will be set by client-side upload
+    const imageUrl = formData.get("imageUrl"); // Will be set by client-side upload wrapprt-inside it it has 2 hidden input for this purpose
+    const videoUrl = formData.get("videoUrl"); //like imageUrl
     const category = formData.get("category");
     const title = formData.get("title");
 

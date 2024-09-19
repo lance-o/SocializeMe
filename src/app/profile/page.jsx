@@ -19,7 +19,12 @@ import {
 import { getFollowingCountTruncated } from "@/app/actions/getFollowingCount";
 import EditProfile from "@/components/EditProfile";
 import Image3D from "@/components/Image3D";
-
+export async function generateMetadata() {
+  return {
+    title: `Socialize Me App - Profile`,
+    description: `Connecting Software Development Professionals Through Socialize Me!`,
+  };
+}
 export default async function ProfilePage() {
   {
     const curUser = await currentUser();
@@ -53,9 +58,12 @@ export default async function ProfilePage() {
     const followersList = await fetchFollowers(theUser?.id);
     //badge managing
     let src = "";
+    let badge = "";
     const followerCount = await getFollowerCount(theUser.id);
     {
-      if (followerCount == 1) {
+      if (followerCount == 0) {
+        badge = "";
+      } else if (followerCount == 1) {
         src = "/assets/badge1.png";
       } else if (followerCount == 50) {
         src = "/assets/badge2.png";
@@ -118,7 +126,7 @@ export default async function ProfilePage() {
               <Link href="users">Users</Link>
               <Link href="/favorites">Favorite</Link>
               <div className="badge">
-                <Image3D src={src} />
+                {followerCount == 0 ? badge : <Image3D src={src} />}
               </div>
             </div>
           </div>

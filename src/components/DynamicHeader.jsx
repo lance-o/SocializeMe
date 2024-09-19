@@ -1,10 +1,28 @@
-import { SignedOut, SignInButton, SignOutButton } from "@clerk/nextjs";
+"use client";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignOutButton,
+  UserButton,
+} from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import "./DynamicHeader.css";
-import SearchBarComponent from "./SearchBarComponent";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+  const router = useRouter(); // Use the useRouter hook to perform redirections
+  const [selectedValue, setSelectedValue] = useState("");
+  const handleSelectChange = (event) => {
+    const selectedValue = event.target.value;
+
+    if (selectedValue) {
+      router.push(selectedValue); // Redirect to the selected path
+    }
+    setSelectedValue("");
+  };
   return (
     <div className="header">
       <div>
@@ -15,7 +33,6 @@ export default function Header() {
           height={100}
           alt="logo"
         ></Image>
-
       </div>
       <div
         className="headerOverlay"
@@ -42,36 +59,60 @@ export default function Header() {
 
       <div className="RightSideHeader">
         <div className="ClerkUserArea">
-          <p>username</p>
+          <p>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </p>
         </div>
 
         <div className="rightside_child">
-          <Link href="/">Home</Link>
           <div className="NavItems">
-            <p className="NavItem1Hide">Item 1</p>
-            <p className="NavItem2Hide">Item 2</p>
-            <p className="NavItem3Hide">Item 3</p>
-            <p className="NavItem4Hide">Item 4</p>
+            <SignedIn>
+              <SignOutButton />
+            </SignedIn>
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <Link href="/">Home</Link>
+
+            <Link href="/profile" className="NavItem1Hide">
+              Profile
+            </Link>
+            <Link href="/post" className="NavItem2Hide">
+              Make Post
+            </Link>
+            <Link href="/favorites" className="NavItem3Hide">
+              Favorites
+            </Link>
+            <Link href="/users" className="NavItem4Hide">
+              Users
+            </Link>
           </div>
 
-          <select defaultValue="">
-            <option value="" className="SelectItem1Hide">
+          <select
+            className="headerSelect"
+            onChange={handleSelectChange}
+            value={selectedValue}
+            defaultValue=""
+          >
+            <option disabled value="">
               Hidden Menu
             </option>
-            <option value="/profile" className="SelectItem2Hide">
+            <option value="/profile" className="SelectItem1Hide">
               Profile
             </option>
-            <option value="" className="SelectItem3Hide">
-              About us
+            <option value="/post" className="SelectItem2Hide">
+              Make Post
             </option>
-            <option value="" className="SelectItem4Hide">
-              Job Board
+            <option value="/favorites" className="SelectItem3Hide">
+              Favorites
             </option>
-            <option value="">test2</option>
-            <option value="">test3</option>
+            <option value="/users" className="SelectItem4Hide">
+              Users
+            </option>
+            <option value="/myposts">myposts</option>
           </select>
-
-          <SearchBarComponent></SearchBarComponent>
         </div>
       </div>
     </div>
