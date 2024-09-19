@@ -25,7 +25,6 @@ export default async function Home() {
     fliteredPosts = await searchByCat(cat);
     console.log("filtered posts: ", posts);
     revalidatePath("/");
-    redirect("/");
   }
 
   
