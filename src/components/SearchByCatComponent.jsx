@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import "./SearchByCatComponent.css";
 import { searchByCat } from "@/app/actions/searchByCat";
 
+let disabled = true;
+
 export default function SearchByCatComponent(params) {
   const [searchMethod, setSearchMethod] = useState(""); // Holds selected search method (email or name)
   const [posts, setPosts] = useState(null);
@@ -26,6 +28,7 @@ export default function SearchByCatComponent(params) {
   };
   const changleHandle = async (event) => {
     setSearchMethod(event.target.value);
+    disabled = false;
   };
   return (
     <div className={"searchBarContainer"}>
@@ -53,7 +56,7 @@ export default function SearchByCatComponent(params) {
             </option>
           ))}
         </select>
-        <button className="butForFilter" type="submit">
+        <button className="butForFilter" disabled={disabled} type="submit">
           Sort Posts
         </button>
       </form>
