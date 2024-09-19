@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Like from "./LikeSave";
-import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 import Image from "next/image";
 import AvatarDisplay from "./Avatar";
