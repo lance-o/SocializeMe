@@ -16,7 +16,7 @@ export default async function Home() {
   const theUser = await fetchUser(currUser?.id);
   let userId = null;
   if (theUser != null) userId = theUser.id;
-  const result = await db.query(`SELECT * FROM posts`);
+  const result = await db.query(`SELECT * FROM posts ORDER BY posts.creation_date DESC`);
   let posts = result.rows;
 
   async function doSearchByCatAction(cat){
