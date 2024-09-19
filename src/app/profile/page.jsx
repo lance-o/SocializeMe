@@ -48,7 +48,12 @@ export default async function ProfilePage() {
       // here if user is not available in users Table it return the form for filling it
       return (
         <div>
-          <ProfileForm submission={profileFormSubmit} userId={curUser?.id} creationDate={creationDate} lastLoginDate={lastLoginDate}/>
+          <ProfileForm
+            submission={profileFormSubmit}
+            userId={curUser?.id}
+            creationDate={creationDate}
+            lastLoginDate={lastLoginDate}
+          />
         </div>
       );
     }
@@ -66,12 +71,12 @@ export default async function ProfilePage() {
     {
       if (followerCount == 0) {
         badge = "";
-      } else if (followerCount == 1) {
-        src = "/assets/badge1.png";
-      } else if (followerCount == 50) {
-        src = "/assets/badge2.png";
-      } else if (followerCount == 1000) {
-        src = "/assets/badge3.png";
+      } else if (followerCount >= 1) {
+        src = "/./assets/badge1.png";
+      } else if (followerCount >= 50) {
+        src = "/./assets/badge2.png";
+      } else if (followerCount >= 1000) {
+        src = "/./assets/badge3.png";
       }
     }
     return (
@@ -90,7 +95,6 @@ export default async function ProfilePage() {
           </div>
 
           <div className="buttonOrder">
-            <Link href="#">Badge role</Link>
             <EditProfile userId={theUser.id} />
             <AlertDialogDemo id={theUser.id} /> {/* deleteAccount */}
             <SignOutButton />
