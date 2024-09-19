@@ -76,14 +76,13 @@ export default function SearchBarComponent() {
 
         <input
           type="text"
-          className={`searchInput ${searchMethod && "searchInputFocus"}`}
-          placeholder={`Search User by ${searchMethod || "..."}`}
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          disabled={!searchMethod} // ignore the error it is working
           className={`searchInput ${
             !searchMethod ? "searchInputDisabled" : ""
           }`}
+          placeholder={`Search User by ${searchMethod || "..."}`}
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          disabled={!searchMethod}
         />
 
         <button type="submit" className="searchButton">
