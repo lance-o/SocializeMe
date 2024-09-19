@@ -4,7 +4,7 @@ import "./ProfileForm.css";
 import { useState } from "react";
 import UploadMediaTwo from "./UploadImageTwo";
 
-export default function ProfileForm({ submission }) {
+export default function ProfileForm({ submission, userId, creationDate, lastLoginDate}) {
   const [formData, setFormData] = useState({
     email: "",
     firstname: "",
@@ -24,7 +24,7 @@ export default function ProfileForm({ submission }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const form = new FormData(event.target);
-    await submission(form);
+    await submission(form, userId, creationDate, lastLoginDate);
     resetForm();
   };
 

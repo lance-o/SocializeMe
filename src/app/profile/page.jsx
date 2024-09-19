@@ -41,11 +41,14 @@ export default async function ProfilePage() {
     //checking if user has profile or not
     const theUser = await fetchUser(curUser?.id);
 
+    const creationDate = new Date(curUser.createdAt).toLocaleString();
+    const lastLoginDate = new Date(curUser.lastSignInAt).toLocaleString();
+
     if (!theUser) {
       // here if user is not available in users Table it return the form for filling it
       return (
         <div>
-          <ProfileForm submission={profileFormSubmit} />
+          <ProfileForm submission={profileFormSubmit} userId={curUser?.id} creationDate={creationDate} lastLoginDate={lastLoginDate}/>
         </div>
       );
     }
