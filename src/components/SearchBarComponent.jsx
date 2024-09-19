@@ -4,7 +4,7 @@ import { fetchUserByEmail } from "@/app/actions/fetchUserByEmail";
 import { fetchUserByName } from "@/app/actions/fetchUserByName";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "./SearchBarComponent.module.css";
+import "./SearchBarComponent.css";
 export default function SearchBarComponent() {
   const [searchMethod, setSearchMethod] = useState(""); // Holds selected search method (email or name)
   const [searchInput, setSearchInput] = useState(""); // Holds user input
@@ -48,24 +48,24 @@ export default function SearchBarComponent() {
   };
 
   return (
-    <div className={styles.searchBarContainer}>
+    <div className={"searchBarContainer"}>
       <form onSubmit={searchHandle}>
-        <label className={styles.searchLabel}>Select your search method:</label>
+        <label className={"searchLabel"}>Select your search method:</label>
         <div>
-          <label className={styles.radioLabel}>
+          <label className={"radioLabel"}>
             <input
               type="radio"
-              className={styles.radioInput}
+              className={"radioInput"}
               name="searchMethod"
               value="email"
               onChange={(event) => setSearchMethod(event.target.value)}
             />
             Search by Email
           </label>
-          <label className={styles.radioLabel}>
+          <label className={"radioLabel"}>
             <input
               type="radio"
-              className={styles.radioInput}
+              className={"radioInput"}
               name="searchMethod"
               value="name"
               onChange={(event) => setSearchMethod(event.target.value)}
@@ -76,23 +76,21 @@ export default function SearchBarComponent() {
 
         <input
           type="text"
-          className={`${styles.searchInput} ${
-            searchMethod && styles.searchInputFocus
-          }`}
+          className={`searchInput ${searchMethod && "searchInputFocus"}`}
           placeholder={`Search User by ${searchMethod || "..."}`}
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           disabled={!searchMethod} // ignore the error it is working
-          className={`${styles.searchInput} ${
-            !searchMethod ? styles.searchInputDisabled : ""
+          className={`searchInput ${
+            !searchMethod ? "searchInputDisabled" : ""
           }`}
         />
 
-        <button type="submit" className={styles.searchButton}>
+        <button type="submit" className="searchButton">
           Search
         </button>
 
-        {error && <p className={styles.errorMessage}>{error}</p>}
+        {error && <p className="errorMessage">{error}</p>}
       </form>
     </div>
   );
