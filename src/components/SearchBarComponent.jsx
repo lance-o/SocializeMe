@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 "use client";
 
 import { fetchUserByEmail } from "@/app/actions/fetchUserByEmail";
