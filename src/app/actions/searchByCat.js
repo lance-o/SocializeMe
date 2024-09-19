@@ -9,7 +9,7 @@ export async function searchByCat(cat) {
     cat,
   ]);
   const categoryId = catRes.rows[0].id;
-  const postsRes = await db.query("SELECT *FROM posts WHERE category_id=$1", [
+  const postsRes = await db.query("SELECT *FROM posts WHERE category_id=$1 ORDER BY posts.creation_date DESC", [
     categoryId,
   ]);
 
