@@ -6,20 +6,22 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import "./SearchBarComponent.css";
 import { searchByCat } from "@/app/actions/searchByCat";
-export default function SearchByCatComponent() {
+
+export default function SearchByCatComponent(params) {
   const [searchMethod, setSearchMethod] = useState(""); // Holds selected search method (email or name)
   const [posts, setPosts] = useState(null);
   const router = useRouter();
+
+  const categories = params.categories;
 
   // Function to handle the search logic and call the correct function
   const searchHandle = async (event) => {
     event.preventDefault();
 
     const form = new FormData(event.target);
-    //call action
-    const posts = await searchByCat(form);
-    setPosts(posts);
+    const category = form.get("category");
 
+    params.doSearchByCatAction(category);
     setSearchMethod("");
   };
   const changleHandle = async (event) => {
@@ -37,6 +39,10 @@ export default function SearchByCatComponent() {
           <option disabled style={{ color: "black" }} value="">
             Choose a Category
           </option>
+          <option
+              style={{ color: "black" }}
+              value={"*"}
+            >No Category</option>
           {categories.map((category) => (
             <option
               style={{ color: "black" }}
@@ -47,6 +53,7 @@ export default function SearchByCatComponent() {
             </option>
           ))}
         </select>
+        <button type="submit">Sort Posts</button>
       </form>
     </div>
   );

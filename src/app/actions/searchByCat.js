@@ -3,7 +3,9 @@
 import { db } from "@/lib/db";
 
 export async function searchByCat(cat) {
-  const catRes = await db.query(`SELECT *FROM categories WHERE name =$1`, [
+  if(cat === "*")
+    return null;
+  const catRes = await db.query(`SELECT *FROM categories WHERE id =$1`, [
     cat,
   ]);
   const categoryId = catRes.rows[0].id;
