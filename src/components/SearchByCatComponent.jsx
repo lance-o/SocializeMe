@@ -8,7 +8,7 @@ import "./SearchByCatComponent.css";
 import { searchByCat } from "@/app/actions/searchByCat";
 
 export default function SearchByCatComponent(params) {
-  const[disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(true);
   const [searchMethod, setSearchMethod] = useState(""); // Holds selected search method (email or name)
   const [posts, setPosts] = useState(null);
   const router = useRouter();
@@ -27,6 +27,7 @@ export default function SearchByCatComponent(params) {
   };
   const changleHandle = async (event) => {
     setSearchMethod(event.target.value);
+    console.log("event.target.value= ", event.target.value);
     setDisabled(false);
   };
   return (
