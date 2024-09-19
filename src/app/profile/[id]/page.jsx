@@ -28,6 +28,17 @@ import checkBlock from "@/app/actions/blockCheck";
 import unBlockUser from "@/app/actions/unBlockUser";
 import checkMeBlocked from "@/app/actions/checkMeBlocked";
 
+export async function generateMetadata({ params }) {
+  const id = parseInt(params.id, 10);
+  const userRes = await db.query(`SELECT * FROM users WHERE id=$1`, [id]);
+  const userName = userRes.rows[0];
+  console.log("param is ", params);
+  return {
+    title: `Socialize Me App - ${userName.first_name}`,
+    description: `Connecting Software Development Professionals Through Socialize Me!`,
+  };
+}
+
 export default async function SingleProfilePage({ params }) {
   const id = params.id;
   const currUser = await currentUser();
