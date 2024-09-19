@@ -20,6 +20,7 @@ export default function PostOptions(params){
     let userBlocked = params.isBlocked;
     let isSuperior = params.isSuperior;
 
+    
     console.log(userBlocked);
 
     function blockAction(){

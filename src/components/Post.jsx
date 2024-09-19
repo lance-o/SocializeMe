@@ -82,20 +82,23 @@ export default async function Post(params) {
 
   return (
     <div className="postBody">
-      <div className="absolute right-2">
-        <PostOptions 
-          userId={params.userId} 
-          posterId={post.user_id} 
-          postEntirety={post}
-          isSuperior={await compareRole(params.userId,post.user_id)}
-          isFollowed={await followChecking(params.userId, post.user_id)} 
-          isBlocked={await blockCheck(post.user_id, params.userId)}
-          doFollowAction={doFollowAction}
-          doBlockAction={doBlockAction}
-          doEditFunction={doEditFunction}
-          doDeleteFunction={doDeleteFunction}>
-        </PostOptions>
-      </div>
+      {params.userId
+      ? <div className="absolute right-2">
+          <PostOptions 
+            userId={params.userId} 
+            posterId={post.user_id} 
+            postEntirety={post}
+            isSuperior={await compareRole(params.userId,post.user_id)}
+            isFollowed={await followChecking(params.userId, post.user_id)} 
+            isBlocked={await blockCheck(post.user_id, params.userId)}
+            doFollowAction={doFollowAction}
+            doBlockAction={doBlockAction}
+            doEditFunction={doEditFunction}
+            doDeleteFunction={doDeleteFunction}>
+          </PostOptions>
+        </div>
+      :null}
+      
       <div className="flex flex-row items-start gap-2">
         <AvatarDisplay src={img_url} css={"AvatarRootPost"} />
         <Link href={`/profile/${post.user_id}`}><p className="text-black">{userName}</p></Link>

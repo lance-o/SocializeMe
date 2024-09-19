@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Core Features 
 
-## Getting Started
+## Authentication: Simple and secure signup and sign-in. 
 
-First, run the development server:
+### - Profile Management: 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### - Create, read, update, and delete (CRUD) profiles. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### - Create and edit profiles, select avatars as profile pictures. 
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### - Users can view other users' profiles
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Content Interaction: 
 
-## Learn More
+### - CRUD functionality for posts and comments. 
 
-To learn more about Next.js, take a look at the following resources:
+### - Users can view posts from others. 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### - Ability to like/unlike, save/un-save, favorite/unfavorite posts. 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### - Users can comment on posts 
 
-## Deploy on Vercel
+### - Users are redirected to the post after interacting with it. 
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## - Social Networking 
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+User Interaction: 
+
+Follow, unfollow, block, and unblock other users. 
+
+Badges and Milestones: 
+
+Awarding of badges based on engagement (followers and activity). 
+
+Multimedia and Post Features 
+
+Upload Support: Users can upload multimedia content (images and videos). 
+
+Content Categories: Users can select categories for the type of content they prefer to see. 
+
+User Interface and Experience 
+
+Fast and User-friendly Interface: Prioritizes speed, privacy, and seamless experience. 
+
+Dynamic Header: Used to enhance the overall user experience. 
+
+ 
+
+ 
+
+Future Development: The app will continue evolving with features influenced by user feedback and technological advancements. Upcoming updates aim to integrate advanced privacy tools, enhance personalization, and introduce features that cater to diverse user needs.
