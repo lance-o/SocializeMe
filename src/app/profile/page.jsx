@@ -19,7 +19,12 @@ import {
 import { getFollowingCountTruncated } from "@/app/actions/getFollowingCount";
 import EditProfile from "@/components/EditProfile";
 import Image3D from "@/components/Image3D";
-
+export async function generateMetadata() {
+  return {
+    title: `Socialize Me App - Profile`,
+    description: `Connecting Software Development Professionals Through Socialize Me!`,
+  };
+}
 export default async function ProfilePage() {
   {
     const curUser = await currentUser();
