@@ -27,6 +27,7 @@ export default function SearchByCatComponent(params) {
   };
   const changleHandle = async (event) => {
     setSearchMethod(event.target.value);
+    console.log("event.target.value= ", event.target.value);
     setDisabled(false);
   };
   return (
