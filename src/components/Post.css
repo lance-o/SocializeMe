@@ -1,42 +1,43 @@
-.postBody{
-    position: relative;
-    border: solid rgba(0, 0, 0, 0.137) 1px;
-    border-radius: 10px;
-    margin: 2px;
-    padding: 4px;
-    width: 500px;
+.postBody {
+  position: relative;
+  border: solid rgba(0, 0, 0, 0.137) 1px;
+  border-radius: 10px;
+  margin: 2px;
+  padding: 4px;
+  width: 500px;
+  background-color: #1f1f1f1f;
 }
 
-.postContent{
-    border: solid rgba(0, 0, 0, 0.137) 1px;
-    border-radius: 10px;
-    margin: 2px;
-    padding: 4px;
-    width: 480px;
+.postContent {
+  border: solid rgba(0, 0, 0, 0.137) 1px;
+  border-radius: 10px;
+  margin: 2px;
+  padding: 4px;
+  width: 480px;
 }
 
-.postContentText{
-    padding-left:8px;
-    color: black;
+.postContentText {
+  padding-left: 8px;
+  color: black;
 }
 
-.postMediaContainer{
-    border: solid rgba(0, 0, 0, 0.137) 1px;
-    border-radius: 1px;
-    margin: 2px;
-    margin-left: 5px;
-    padding: 7px;
-    width: 474px;
-    max-height: 300px;
-    overflow: hidden;
+.postMediaContainer {
+  border: solid rgba(0, 0, 0, 0.137) 1px;
+  border-radius: 1px;
+  margin: 2px;
+  margin-left: 5px;
+  padding: 7px;
+  width: 474px;
+  max-height: 300px;
+  overflow: hidden;
 }
 
 @media (max-width: 500px) {
-    .postBody{
-        width: 90vw;
-    }
-
-    .postContent{
-        width: 85vw;
-    }
+  .postBody {
+    width: 90vw;
   }
+
+  .postContent {
+    width: 85vw;
+  }
+}
