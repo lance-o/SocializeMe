@@ -27,6 +27,7 @@ import { redirect } from "next/navigation";
 import checkBlock from "@/app/actions/blockCheck";
 import unBlockUser from "@/app/actions/unBlockUser";
 import checkMeBlocked from "@/app/actions/checkMeBlocked";
+import Image3D from "@/components/Image3D";
 
 export async function generateMetadata({ params }) {
   const id = parseInt(params.id, 10);
@@ -161,20 +162,21 @@ export default async function SingleProfilePage({ params }) {
 
     const amIblocked = await checkMeBlocked(newUser.id, theUser.id); //checking if the current user is blocked by others
     //badge managing
-    let badgeString = "";
-    const followerCount = await getFollowerCount(newUser.id);
+    //badge managing
+    let src = "";
+    let badge = "";
+    const followerCount = await getFollowerCount(theUser.id);
     {
-      if (followerCount == 1) {
-        badgeString = "You Just Got Your First Follower";
-      } else if (followerCount == 100) {
-        badgeString = "Nice Job, Now You Reach 100 Followers";
+      if (followerCount == 0) {
+        badge = "";
+      } else if (followerCount == 1) {
+        src = "/assets/badge1.png";
+      } else if (followerCount == 50) {
+        src = "/assets/badge2.png";
       } else if (followerCount == 1000) {
-        badgeString = "Nice Job, Now You Reach 1000 Followers";
-      } else if (followerCount == 10000) {
-        badgeString = "Nice Job, Now You Reach 10K Followers";
+        src = "/assets/badge3.png";
       }
     }
-
     return (
       <div className="profilePage">
         <div>
@@ -238,7 +240,7 @@ export default async function SingleProfilePage({ params }) {
                   )}
                 </SignedIn>
                 <div className="badge">
-                  <p>{badgeString == "" ? "You have No Badge" : badgeString}</p>
+                  {followerCount == 0 ? badge : <Image3D src={src} />}
                 </div>
               </div>
             </div>
