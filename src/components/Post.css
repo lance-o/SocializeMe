@@ -37,6 +37,10 @@
     width: 90vw;
   }
 
+  .postMediaContainer{
+    width: 80vw;
+  }
+  
   .postContent {
     width: 85vw;
   }
