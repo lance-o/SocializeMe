@@ -1,0 +1,20 @@
+.searchByCatSelect {
+  border-radius: 15px;
+  background-color: cadetblue;
+  margin: 1rem;
+  padding: 0.5rem;
+  box-shadow: 0 0 12px;
+}
+.butForFilter {
+  border: 1px solid black;
+  box-shadow: 0 0 12px black;
+  padding: 0.3rem;
+  border-radius: 15px;
+  background-color: cornflowerblue;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
+}
+.butForFilter:hover {
+  box-shadow: 0 4px 12px rgb(100, 95, 95);
+}

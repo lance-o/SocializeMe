@@ -4,7 +4,7 @@ import { fetchUserByEmail } from "@/app/actions/fetchUserByEmail";
 import { fetchUserByName } from "@/app/actions/fetchUserByName";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import "./SearchBarComponent.css";
+import "./SearchByCatComponent.css";
 import { searchByCat } from "@/app/actions/searchByCat";
 
 export default function SearchByCatComponent(params) {
@@ -31,6 +31,7 @@ export default function SearchByCatComponent(params) {
     <div className={"searchBarContainer"}>
       <form onSubmit={searchHandle}>
         <select
+          className="searchByCatSelect"
           onChange={changleHandle}
           id="category"
           name="category"
@@ -39,10 +40,9 @@ export default function SearchByCatComponent(params) {
           <option disabled style={{ color: "black" }} value="">
             Choose a Category
           </option>
-          <option
-              style={{ color: "black" }}
-              value={"*"}
-            >No Category</option>
+          <option style={{ color: "black" }} value={"*"}>
+            No Category
+          </option>
           {categories.map((category) => (
             <option
               style={{ color: "black" }}
@@ -53,7 +53,9 @@ export default function SearchByCatComponent(params) {
             </option>
           ))}
         </select>
-        <button type="submit">Sort Posts</button>
+        <button className="butForFilter" type="submit">
+          Sort Posts
+        </button>
       </form>
     </div>
   );
