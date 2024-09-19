@@ -20,6 +20,7 @@ input {
 }
 
 .DialogOverlay {
+  z-index: 0;
   background-color: var(--black-a9);
   position: fixed;
   inset: 0;
