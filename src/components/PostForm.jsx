@@ -72,9 +72,15 @@ export default async function PostForm() {
         </div>
         <div>
           <select id="category" name="category" defaultValue="">
-            <option value="">Select a category</option>
+            <option style={{ color: "black" }} value="">
+              Select a category
+            </option>
             {categories.map((category) => (
-              <option key={category.id} value={category.id}>
+              <option
+                style={{ color: "black" }}
+                key={category.id}
+                value={category.id}
+              >
                 {category.category_name}
               </option>
             ))}
